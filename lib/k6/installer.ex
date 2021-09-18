@@ -1,6 +1,12 @@
 defmodule K6.Installer do
   @moduledoc """
-  Module used to install k6
+  Module used to install k6.
+
+  k6 version can be explicitly configured with:
+  ```
+  config :k6, version: "vX.X.X"
+  ```
+  If no k6 version is set the default is v0.34.1.
   """
   alias K6.Archive
   alias K6.Downloader
