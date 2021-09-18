@@ -3,8 +3,14 @@ defmodule Mix.Tasks.K6.Gen.Test do
   import Mix.Generator
 
   @shortdoc "Generates a new k6 test"
-  def run(_) do
-    file = Path.join(["priv", "k6", "test.js"])
+  def run(args) do
+    test_name =
+      case OptionParser.parse!(args, strict: [], aliases: []) do
+        {_switches, [test_name]} -> test_name
+        {_switches, _positional_args} -> raise "Please provide a single name for your test."
+      end
+
+    file = Path.join(["priv", "k6", test_name <> ".js"])
 
     create_directory(Path.dirname(file))
     create_file(file, graphql_template(url: "http://localhost:4000/graphql"))
