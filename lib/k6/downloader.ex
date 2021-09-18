@@ -1,4 +1,7 @@
 defmodule K6.Downloader do
+
+  alias K6.Target
+
   @doc """
   Downloads k6 package according to target os
   """
@@ -12,17 +15,9 @@ defmodule K6.Downloader do
     end
   end
 
-  defp binary_url, do: "https://github.com/grafana/k6/releases/download/#{version()}/#{target()}"
-
-  defp target do
-    case :os.type() do
-      {:unix, :darwin} ->
-        "k6-#{version()}-macos-amd64.zip"
-
-      other ->
-        raise "Not implemented for #{inspect(other)}"
-    end
+  defp binary_url do
+    "https://github.com/grafana/k6/releases/download/#{version()}/#{Target.get!}"
   end
 
-  defp version, do: "v0.34.1"
+  defp version, do: Application.get_env(:k6, :version, "v0.34.1")
 end
