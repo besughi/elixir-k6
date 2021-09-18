@@ -1,21 +1,22 @@
 # K6
 
-**TODO: Add description**
+**This project provides mix tasks for interacting with k6.**
+
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `k6` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `k6` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:k6, "~> 0.1.0"}
+    {:k6, github: "spawnfest/gabibbo"}
   ]
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/k6](https://hexdocs.pm/k6).
+After that you can install k6 by running:
 
+```shell
+mix k6.install
+```
