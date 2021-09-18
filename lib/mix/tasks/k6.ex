@@ -6,9 +6,17 @@ defmodule Mix.Tasks.K6 do
 
   @binary_path Path.join(Path.dirname(Mix.Project.build_path()), "k6")
 
-  @shortdoc "Installs K6 on the local machine"
+  @shortdoc "Runs K6 on the local machine"
   def run(args) when is_list(args) do
+    unless File.exists?(@binary_path) do
+      Mix.Task.run("k6.install")
+    end
+
     test_dir = Path.join(["priv", "k6"])
+
+    unless File.exists?(test_dir) do
+      File.mkdir_p(test_dir)
+    end
 
     opts = [
       cd: test_dir,
