@@ -17,12 +17,30 @@ defmodule Mix.Tasks.K6.Install do
           raise "couldn't fetch #{binary_url()}: #{inspect(other)}"
       end
 
-    {:ok, archive} = :zip.zip_open(body, [:memory])
-    {:ok, {_file_name, content}} = :zip.zip_get(~c'k6-v0.34.1-macos-amd64/k6', archive)
-    :zip.zip_close(archive)
+    content = extract_k6_binary(body)
 
     File.write!(@binary_path, content)
     File.chmod!(@binary_path, 0o755)
+  end
+
+  defp extract_k6_binary(body) do
+    {:ok, archive} = :zip.zip_open(body, [:memory])
+    {:ok, list_dir} = :zip.zip_list_dir(archive)
+
+    target_file =
+      list_dir
+      |> Enum.find_value(fn
+        {:zip_file, name, _info, _comment, _offset, _comp_size} ->
+          if String.ends_with?(to_string(name), "/k6"), do: name
+
+        _ ->
+          nil
+      end)
+
+    {:ok, {_file_name, content}} = :zip.zip_get(target_file, archive)
+    :zip.zip_close(archive)
+
+    content
   end
 
   defp binary_url, do: "https://github.com/grafana/k6/releases/download/#{version()}/#{target()}"
