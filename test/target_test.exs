@@ -11,12 +11,4 @@ defmodule K6.TargetTest do
     assert "k6-v0.34.1-macos-amd64.zip" = Target.get!("v0.34.1", os_type)
   end
 
-  test "returns k6 target according to os type" do
-    os_type = fn ->
-      {:unix, :darwin}
-    end
-
-    assert "k6-v0.34.1-macos-amd64.zip" = Target.get!("v0.34.1", os_type)
-  end
-
 end
