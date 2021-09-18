@@ -1,5 +1,4 @@
 defmodule K6.Installer do
-
   alias K6.Archive
   alias K6.Downloader
 
@@ -18,5 +17,4 @@ defmodule K6.Installer do
   end
 
   defp k6_version, do: Application.get_env(:k6, :version, "v0.34.1")
-
 end

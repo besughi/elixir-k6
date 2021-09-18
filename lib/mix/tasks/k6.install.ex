@@ -8,6 +8,6 @@ defmodule Mix.Tasks.K6.Install do
     {:ok, _} = Application.ensure_all_started(:inets)
     {:ok, _} = Application.ensure_all_started(:ssl)
 
-    Installer.install!
+    Installer.install!()
   end
 end

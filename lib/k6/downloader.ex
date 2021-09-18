@@ -1,5 +1,4 @@
 defmodule K6.Downloader do
-
   alias K6.Target
 
   @doc """
@@ -32,5 +31,4 @@ defmodule K6.Downloader do
   defp binary_url(k6_version) do
     "https://github.com/grafana/k6/releases/download/#{k6_version}/#{Target.get!(k6_version)}"
   end
-
 end

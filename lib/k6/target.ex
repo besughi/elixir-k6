@@ -12,5 +12,4 @@ defmodule K6.Target do
         raise "Not implemented for #{inspect(other)}"
     end
   end
-
 end

@@ -10,5 +10,4 @@ defmodule K6.TargetTest do
 
     assert "k6-v0.34.1-macos-amd64.zip" = Target.get!("v0.34.1", os_type)
   end
-
 end
