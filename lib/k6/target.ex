@@ -1,8 +1,11 @@
 defmodule K6.Target do
+  @moduledoc """
+  Get k6 target version according to system
+  """
   @type file_type :: :zip | :tar_gz
 
   @doc """
-  Returns k6 target version according to system
+  Get k6 target version
   """
   @spec get!(String.t()) :: {file_type(), String.t()}
   def get!(version, os_type \\ &:os.type/0) do

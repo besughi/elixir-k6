@@ -1,4 +1,7 @@
 defmodule Mix.Tasks.K6.Install do
+  @moduledoc """
+  Installs k6 on environment
+  """
   use Mix.Task
 
   alias K6.Installer

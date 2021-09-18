@@ -1,4 +1,7 @@
 defmodule K6.Installer do
+  @moduledoc """
+  Module used to install k6
+  """
   alias K6.Archive
   alias K6.Downloader
 

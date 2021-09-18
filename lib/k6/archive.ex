@@ -1,4 +1,8 @@
 defmodule K6.Archive do
+  @moduledoc """
+  Extracts k6 archive
+  """
+
   @doc """
   Extracts archive to a given filename
   """

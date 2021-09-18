@@ -1,4 +1,7 @@
 defmodule Mix.Tasks.K6.Gen.Test do
+  @moduledoc """
+  Generates k6 test
+  """
   use Mix.Task
 
   alias K6.Template

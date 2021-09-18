@@ -1,8 +1,11 @@
 defmodule K6.Downloader do
+  @moduledoc """
+  Downloads k6 package according to a version and target environment
+  """
   alias K6.Target
 
   @doc """
-  Downloads k6 package according to target os
+  Downloads k6 package
   """
   @spec download!(String.t()) :: {Target.file_type(), binary()}
   def download!(k6_version) do

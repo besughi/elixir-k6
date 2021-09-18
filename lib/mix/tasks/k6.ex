@@ -1,4 +1,7 @@
 defmodule Mix.Tasks.K6 do
+  @moduledoc """
+  Runs k6
+  """
   use Mix.Task
 
   @binary_path Path.join(Path.dirname(Mix.Project.build_path()), "k6")
