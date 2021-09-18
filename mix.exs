@@ -8,7 +8,7 @@ defmodule K6.MixProject do
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      xref: [exclude: [:httpc, :xref]]
+      xref: [exclude: [:httpc, :castore, :xref]]
     ]
   end
 
