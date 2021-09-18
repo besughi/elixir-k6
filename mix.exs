@@ -22,7 +22,8 @@ defmodule K6.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:castore, ">= 0.1.11"}
+      {:castore, ">= 0.1.11"},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
     ]
   end
 end
