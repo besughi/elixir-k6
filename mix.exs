@@ -8,8 +8,9 @@ defmodule K6.MixProject do
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      aliases: aliases(),
       xref: [exclude: [:httpc, :castore, :xref]],
-      aliases: aliases()
+      dialyzer: [plt_add_deps: :transitive, plt_add_apps: [:mix]]
     ]
   end
 
