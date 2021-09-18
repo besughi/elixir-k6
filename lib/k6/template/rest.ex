@@ -1,8 +1,10 @@
 defmodule K6.Template.Rest do
   import Mix.Generator
 
+  alias K6.Template
+
   def generate(filename, opts) do
-    url = Keyword.get(opts, :url, "https://localhost:4000/")
+    url = Keyword.get(opts, :url, Template.default_base_url())
 
     create_directory(Path.dirname(filename))
     create_file(filename, graphql_template(url: url))
