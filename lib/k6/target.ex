@@ -1,18 +1,15 @@
 defmodule K6.Target do
   @doc """
-  Returns target system
+  Returns k6 target version according to system
   """
-  @spec get! :: String.t()
-  def get! do
+  @spec get!(String.t()) :: String.t()
+  def get!(version) do
     case :os.type() do
       {:unix, :darwin} ->
-        "k6-#{version()}-macos-amd64.zip"
+        "k6-#{version}-macos-amd64.zip"
 
       other ->
         raise "Not implemented for #{inspect(other)}"
     end
   end
-
-  defp version, do: Application.get_env(:k6, :version, "v0.34.1")
-
 end
