@@ -21,6 +21,13 @@ After that you can install k6 by running:
 mix k6.install
 ```
 
+By default the installation task will install k6 version `v0.34.1`.
+You can override this in your config file:
+
+```elixir
+config :k6, version: "vX.X.X"
+```
+
 ## Generating a k6 test
 
 You can generate different k6 tests by running:
