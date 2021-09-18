@@ -8,6 +8,9 @@ defmodule K6.Target do
       {:unix, :darwin} ->
         "k6-#{version}-macos-amd64.zip"
 
+      {:unix, :linux} ->
+        "k6-#{version}-linux-amd64.tar.gz"
+
       other ->
         raise "Not implemented for #{inspect(other)}"
     end
