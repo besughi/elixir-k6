@@ -1,4 +1,7 @@
 defmodule K6.Archive do
+  @doc """
+  Extracts archive to a given filename
+  """
   def extract(archive_body, _archive_type, file_name) do
     archive =
       case :zip.zip_open(archive_body, [:memory]) do
