@@ -4,9 +4,12 @@ defmodule K6.Downloader do
   @doc """
   Downloads k6 package according to target os
   """
+  @spec download!(String.t()) :: {Target.file_type(), binary()}
   def download!(k6_version) do
     # https://erlef.github.io/security-wg/secure_coding_and_deployment_hardening/inets
     cacertfile = CAStore.file_path() |> String.to_charlist()
+
+    {file_type, target} = Target.get!(k6_version)
 
     options = [
       ssl: [
@@ -19,16 +22,16 @@ defmodule K6.Downloader do
       ]
     ]
 
-    case :httpc.request(:get, {binary_url(k6_version), []}, options, body_format: :binary) do
+    case :httpc.request(:get, {binary_url(k6_version, target), []}, options, body_format: :binary) do
       {:ok, {{_, 200, _}, _headers, body}} ->
-        body
+        {file_type, body}
 
       other ->
-        raise "couldn't fetch #{binary_url(k6_version)}: #{inspect(other)}"
+        raise "couldn't fetch #{binary_url(k6_version, target)}: #{inspect(other)}"
     end
   end
 
-  defp binary_url(k6_version) do
-    "https://github.com/grafana/k6/releases/download/#{k6_version}/#{Target.get!(k6_version)}"
+  defp binary_url(k6_version, target) do
+    "https://github.com/grafana/k6/releases/download/#{k6_version}/#{target}"
   end
 end

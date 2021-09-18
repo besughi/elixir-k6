@@ -8,7 +8,7 @@ defmodule K6.TargetTest do
       {:unix, :darwin}
     end
 
-    assert "k6-v0.34.1-macos-amd64.zip" = Target.get!("v0.34.1", os_type)
+    assert {:zip, "k6-v0.34.1-macos-amd64.zip"} = Target.get!("v0.34.1", os_type)
   end
 
   test "returns k6 target for linux" do
@@ -16,6 +16,6 @@ defmodule K6.TargetTest do
       {:unix, :linux}
     end
 
-    assert "k6-v0.34.1-linux-amd64.tar.gz" = Target.get!("v0.34.1", os_type)
+    assert {:tar_gz, "k6-v0.34.1-linux-amd64.tar.gz"} = Target.get!("v0.34.1", os_type)
   end
 end

@@ -2,6 +2,7 @@ defmodule K6.Archive do
   @doc """
   Extracts archive to a given filename
   """
+  @spec extract(binary(), K6.Target.file_type(), String.t()) :: {:ok, binary()} | {:error, any()}
   def extract(archive_body, _archive_type, file_name) do
     archive =
       case :zip.zip_open(archive_body, [:memory]) do
