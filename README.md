@@ -20,3 +20,17 @@ After that you can install k6 by running:
 ```shell
 mix k6.install
 ```
+
+## Generating a k6 test
+
+You can generate different k6 tests by running:
+
+```shell
+mix k6.gen.test --type graphql testname.js
+```
+
+Supported test types are:
+
+* graphql
+* rest
+* grpc
