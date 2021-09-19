@@ -68,6 +68,7 @@ mix k6 run [<arg>...]
 ```
 
 This will run k6 in the context of your `priv/k6` folder, where your tests reside, and will forward all the provided arguments to k6.
+Make sure your server is up before running load tests.
 
 ### Why load test?
 
