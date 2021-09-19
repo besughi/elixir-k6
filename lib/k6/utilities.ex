@@ -7,8 +7,11 @@ defmodule K6.Utilities do
 
   @spec generate(binary()) :: :ok
   def generate(path) do
-    create_directory(path)
-    create_phoenix_channel(path)
+    unless File.exists?(path) do
+      create_directory(path)
+      create_phoenix_channel(path)
+    end
+
     :ok
   end
 
