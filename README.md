@@ -30,13 +30,12 @@ mix k6.install
 
 At the moment we support the following architectures:
 
-
-|   OS   |  Architecture   |
-:---:|:---:|
-| MacOs  |amd64      |
-| Linux  |amd64      |
-
-
+|  OS   |    Architecture    |
+| :---: | :----------------: |
+| MacOs |       amd64        |
+| MacOs | arm64 (not tested) |
+| Linux |       amd64        |
+| Linux | arm64 (not tested) |
 
 By default the installation task will install k6 version `v0.34.1`.
 You can override this in your config file:
@@ -69,7 +68,6 @@ mix k6 run [<arg>...]
 ```
 
 This will run k6 in the context of your `priv/k6` folder, where your tests reside, and will forward all the provided arguments to k6.
-
 
 ### Why load test?
 
