@@ -6,8 +6,13 @@ defmodule K6.Template.Rest do
 
   @impl true
   def generate(opts) do
-    url = Keyword.get(opts, :url, default_http_base_url())
+    url = Keyword.get(opts, :url, default_rest_base_url())
     rest_template(url: url)
+  end
+
+  defp default_rest_base_url do
+    {host, port} = default_host_and_port()
+    "http://#{host}:#{port}"
   end
 
   embed_template(:rest, """

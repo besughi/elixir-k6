@@ -57,7 +57,7 @@ These tests will be placed under the `priv/k6` directory of your project.
 Available options to customize the generated test are:
 
 - `--url <url>`: sets the url of the target application. When not provided, the generator will try to detect the url of the configured application, and default to a predefined value (e.g. `localhost:4000` for rest / graphl APIs) otherwise.
-- `--type <test_type>`: defines the template to use for generating the test. Supported types are `graphql`, `rest` and `grpc`.
+- `--type <test_type>`: defines the template to use for generating the test. Supported types are `graphql`, `rest`, `grpc` and `phoenix-channel`.
 
 ### Running k6
 

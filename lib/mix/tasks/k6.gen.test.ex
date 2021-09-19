@@ -15,11 +15,12 @@ defmodule Mix.Tasks.K6.Gen.Test do
 
   ## Command line options
 
-    * `--type` - the template to use to generate the new test. Supported types are `rest` (default), `graphql` and `grpc`.
+    * `--type` - the template to use to generate the new test. Supported types are `rest` (default), `graphql`, `grpc` and `phoenix-channel`.
     * `--url` - the url of the target application. When not set, the generator will try to detect it automatically.
   """
   use Mix.Task
 
+  alias K6.Utilities
   alias K6.Template
 
   @switches [
@@ -36,6 +37,7 @@ defmodule Mix.Tasks.K6.Gen.Test do
         type = Keyword.get(switches, :type, "rest")
         filename = Path.join(["priv", "k6", test_name <> ".js"])
 
+        Utilities.generate(Path.join(["priv", "k6", "utilities"]))
         do_generate(type, filename, switches)
 
       {_switches, _positional_args} ->
@@ -49,4 +51,7 @@ defmodule Mix.Tasks.K6.Gen.Test do
     do: Template.Graphql.generate_and_save(filename, opts)
 
   defp do_generate("grpc", filename, opts), do: Template.Grpc.generate_and_save(filename, opts)
+
+  defp do_generate("phoenix-channel", filename, opts),
+    do: Template.PhoenixChannel.generate_and_save(filename, opts)
 end

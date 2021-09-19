@@ -6,8 +6,13 @@ defmodule K6.Template.Graphql do
 
   @impl true
   def generate(opts) do
-    url = Keyword.get(opts, :url, default_http_base_url())
+    url = Keyword.get(opts, :url, default_graphql_base_url())
     graphql_template(url: url)
+  end
+
+  defp default_graphql_base_url do
+    {host, port} = default_host_and_port()
+    "http://#{host}:#{port}"
   end
 
   embed_template(:graphql, """

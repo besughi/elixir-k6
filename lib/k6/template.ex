@@ -2,7 +2,7 @@ defmodule K6.Template do
   @moduledoc """
   Utility functions for a k6 template
   """
-  @default_http_base_url "http://localhost:80"
+  @default_host_and_port {"localhost", 80}
 
   @callback generate(keyword) :: binary()
 
@@ -21,7 +21,7 @@ defmodule K6.Template do
     end
   end
 
-  def default_http_base_url do
+  def default_host_and_port do
     mix_app = Mix.Project.config()[:app]
     config = Application.get_all_env(mix_app)
 
@@ -31,9 +31,10 @@ defmodule K6.Template do
       |> Enum.find(&phoenix_endpoint?/1)
 
     if phoenix_endpoint != nil do
-      phoenix_endpoint.url()
+      uri = phoenix_endpoint.struct_url()
+      {uri.host, uri.port}
     else
-      @default_http_base_url
+      @default_host_and_port
     end
   end
 
