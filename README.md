@@ -57,7 +57,7 @@ Notice that if you don't pass the `url` option when generating a test, generator
 You can run k6 as:
 
 ```shell
-mix k6 run
+mix k6 run [<arg>...]
 ```
 
-The flgs you can pass when running test are those of standard k6.
+The args you can pass when running test are those of standard k6. You also don't need to specify the tests' base path since it is automatically executed in that folder.
