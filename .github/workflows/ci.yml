@@ -1,0 +1,28 @@
+name: ci
+
+on: [push]
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    container: "elixir:1.12"
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Local hex
+        run: mix local.hex --force
+
+      - name: Local rebar
+        run: mix local.rebar --force
+
+      - name: Install dependencies
+        run: mix deps.get
+
+      - name: Run tests
+        run: mix test
+
+      - name: Check
+        run: mix check
