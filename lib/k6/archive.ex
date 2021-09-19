@@ -1,6 +1,8 @@
 defmodule K6.Archive do
   @moduledoc """
-  Extracts k6 archive
+  Extracts k6 archive.
+
+  Target archive can be a zip or a tar_gz file.
   """
 
   @doc """
