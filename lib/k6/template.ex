@@ -39,7 +39,10 @@ defmodule K6.Template do
   end
 
   defp phoenix_endpoint?(term) do
-    "Endpoint" == term |> Module.split() |> Enum.at(-1)
+    endpoint_name? = "Endpoint" == term |> Module.split() |> Enum.at(-1)
+    has_url_function? = Keyword.has_key?(term.__info__(:functions), :struct_url)
+
+    endpoint_name? && has_url_function?
   rescue
     _ -> false
   end
