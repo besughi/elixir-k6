@@ -31,5 +31,7 @@ defmodule Mix.Tasks.K6.Install do
     Installer.install!()
 
     shell.info("Done.")
+  rescue
+    e -> Mix.raise(e.message)
   end
 end

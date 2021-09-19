@@ -41,7 +41,7 @@ defmodule Mix.Tasks.K6.Gen.Test do
         do_generate(type, filename, switches)
 
       {_switches, _positional_args} ->
-        raise "Please provide a single name for your test."
+        Mix.raise("Please provide a single name for your test.")
     end
   end
 
