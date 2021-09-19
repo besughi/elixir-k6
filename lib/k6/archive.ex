@@ -6,11 +6,11 @@ defmodule K6.Archive do
   @doc """
   Extracts archive to a given filename
   """
-  @spec extract(binary(), K6.Target.file_type(), String.t()) :: {:ok, binary()} | {:error, any()}
-  def extract(archive_body, :zip, filename), do: extract_zip(archive_body, filename)
-  def extract(archive_body, :tar_gz, filename), do: extract_tar_gz(archive_body, filename)
+  @spec extract!(binary(), K6.Target.file_type(), String.t()) :: binary()
+  def extract!(archive_body, :zip, filename), do: extract_zip!(archive_body, filename)
+  def extract!(archive_body, :tar_gz, filename), do: extract_tar_gz!(archive_body, filename)
 
-  defp extract_zip(archive_body, filename) do
+  defp extract_zip!(archive_body, filename) do
     archive =
       case :zip.zip_open(archive_body, [:memory]) do
         {:ok, archive} -> archive
@@ -21,15 +21,15 @@ defmodule K6.Archive do
          target_file <- Enum.find_value(list_dir, &match_zip_filename(filename, &1)),
          {:ok, {_file_name, content}} <- :zip.zip_get(target_file, archive) do
       :zip.zip_close(archive)
-      {:ok, content}
+      content
     else
-      error ->
+      {:error, error} ->
         :zip.zip_close(archive)
-        error
+        raise "Error extracting file from archive: #{inspect(error)}"
     end
   end
 
-  defp extract_tar_gz(archive_body, filename) do
+  defp extract_tar_gz!(archive_body, filename) do
     with {:ok, list_dir} <- :erl_tar.table({:binary, archive_body}, [:compressed]),
          target_file <- Enum.find_value(list_dir, &match_tar_filename(filename, &1)),
          {:ok, [{^target_file, file_content}]} <-
@@ -38,10 +38,10 @@ defmodule K6.Archive do
              :compressed,
              :memory
            ]) do
-      {:ok, file_content}
+      file_content
     else
-      error ->
-        error
+      {:error, error} ->
+        raise "Error extracting file from archive: #{inspect(error)}"
     end
   end
 

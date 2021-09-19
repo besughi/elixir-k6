@@ -7,14 +7,14 @@ defmodule K6.ArchiveTest do
     {:ok, {_filename, data}} =
       :zip.create("test.zip", [{'file1', "content1"}, {'file2', "content2"}], [:memory])
 
-    assert {:ok, "content2"} = Archive.extract(data, :zip, "file2")
+    assert "content2" = Archive.extract!(data, :zip, "file2")
   end
 
   test "extract nested file from zip archive" do
     {:ok, {_filename, data}} =
       :zip.create("test.zip", [{'my/file1', "content1"}, {'my/file2', "content2"}], [:memory])
 
-    assert {:ok, "content2"} = Archive.extract(data, :zip, "file2")
+    assert "content2" = Archive.extract!(data, :zip, "file2")
   end
 
   @tag :tmp_dir
@@ -28,6 +28,6 @@ defmodule K6.ArchiveTest do
 
     data = File.read!(temp_file_path)
 
-    assert {:ok, "content2"} = Archive.extract(data, :tar_gz, "file2")
+    assert "content2" = Archive.extract!(data, :tar_gz, "file2")
   end
 end

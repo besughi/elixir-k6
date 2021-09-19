@@ -19,7 +19,7 @@ defmodule K6.Installer do
   def install! do
     {file_type, body} = Downloader.download!(k6_version())
 
-    {:ok, content} = Archive.extract(body, file_type, "k6")
+    content = Archive.extract!(body, file_type, "k6")
 
     File.write!(@binary_path, content)
     File.chmod!(@binary_path, 0o755)
