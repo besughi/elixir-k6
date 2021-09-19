@@ -20,9 +20,9 @@ end
 
 ### Installing k6
 
-K6 is automatically installed the first time you try to run load tests.
+K6 is automatically installed the first time you run load tests, and it is stored in `_build/k6`.
 
-If you need to explicitly install it before running the tests, you can run:
+In case you may want to explicitly install it before running the tests, you can run:
 
 ```shell
 mix k6.install
