@@ -20,8 +20,8 @@ defmodule Mix.Tasks.K6.Gen.Test do
   """
   use Mix.Task
 
-  alias K6.Utilities
   alias K6.Template
+  alias K6.Utilities
 
   @switches [
     type: :string,
