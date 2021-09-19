@@ -30,8 +30,13 @@ mix k6.install
 
 At the moment we support the following architectures:
 
-- mac os - amd64
-- linux - amd64
+
+|   OS   |  Architecture   |
+:---:|:---:|
+| MacOs  |amd64      |
+| Linux  |amd64      |
+
+
 
 By default the installation task will install k6 version `v0.34.1`.
 You can override this in your config file:
