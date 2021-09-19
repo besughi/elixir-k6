@@ -17,15 +17,10 @@ defmodule Mix.Tasks.K6 do
 
   @shortdoc "Runs k6"
   def run(args) when is_list(args) do
-    unless File.exists?(@binary_path) do
-      Mix.Task.run("k6.install")
-    end
+    unless File.exists?(@binary_path), do: Mix.Task.run("k6.install")
 
     test_dir = Path.join(["priv", "k6"])
-
-    unless File.exists?(test_dir) do
-      File.mkdir_p(test_dir)
-    end
+    unless File.exists?(test_dir), do: File.mkdir_p(test_dir)
 
     opts = [
       cd: test_dir,
