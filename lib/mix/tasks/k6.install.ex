@@ -17,6 +17,11 @@ defmodule Mix.Tasks.K6.Install do
     {:ok, _} = Application.ensure_all_started(:inets)
     {:ok, _} = Application.ensure_all_started(:ssl)
 
+    shell = Mix.shell()
+    shell.info("Installing k6 locally...")
+
     Installer.install!()
+
+    shell.info("Done.")
   end
 end
