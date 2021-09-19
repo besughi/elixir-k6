@@ -4,7 +4,7 @@ defmodule K6.Template do
   """
   @default_http_base_url "http://localhost:80"
 
-  @callback generate(keyword) :: :ok
+  @callback generate(keyword) :: binary()
 
   defmacro __using__(_) do
     quote do
