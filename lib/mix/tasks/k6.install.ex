@@ -4,9 +4,17 @@ defmodule Mix.Tasks.K6.Install do
 
   The binary will be placed in `_build/k6`.
 
+  ## Configuring k6 version
+  By default k6 v0.34.1 will be installed.
+  You can install a specific k6 version with:
+
+      config :k6,
+        version: "vX.Y.Z"
+
   ## Examples
 
       $ mix k6.install
+
   """
   use Mix.Task
 

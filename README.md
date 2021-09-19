@@ -41,7 +41,7 @@ By default the installation task will install k6 version `v0.34.1`.
 You can override this in your config file:
 
 ```elixir
-config :k6, version: "vX.X.X"
+config :k6, version: "vX.Y.Z"
 ```
 
 ### Generating tests
