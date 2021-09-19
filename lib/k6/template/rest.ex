@@ -22,7 +22,7 @@ defmodule K6.Template.Rest do
   export default function() {
     const data = {};
     let res = http.post('<%= @url %>', data);
-      check(res, { 'success login': (r) => r.status === 200 });
+      check(res, { 'success': (r) => r.status === 200 });
       sleep(0.3);
   }
   """)
