@@ -1,6 +1,22 @@
 defmodule Mix.Tasks.K6.Gen.Test do
   @moduledoc """
-  Generates k6 test
+  Generate a new k6 test.
+
+  The tests will be placed in the `priv/k6` folder of your project.
+  By default a test for a generic rest-like API will be generated.
+  However, the template to use for the generation of tests can be specified
+  via the `--type` flag.
+
+  ## Examples
+
+      $ mix k6.gen.test test_name
+      $ mix k6.gen.test --type graphql test_name
+      $ mix k6.gen.test --url "http://localhost:8000" test_name
+
+  ## Command line options
+
+    * `--type` - the template to use to generate the new test. Supported types are `rest` (default), `graphql` and `grpc`.
+    * `--url` - the url of the target application. When not set, the generator will try to detect it automatically.
   """
   use Mix.Task
 
@@ -10,7 +26,7 @@ defmodule Mix.Tasks.K6.Gen.Test do
     type: :string
   ]
 
-  @shortdoc "Generates a new k6 test"
+  @shortdoc "Generate a new k6 test"
   def run(args) do
     Mix.Task.run("app.start")
 
