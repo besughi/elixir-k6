@@ -14,9 +14,22 @@ defmodule K6.Template do
 
       @spec generate_and_save(binary, keyword) :: :ok
       def generate_and_save(filename, opts) do
-        create_directory(Path.dirname(filename))
+        directory_path = Path.dirname(filename)
+
+        check_file_existence!(filename)
+
+        unless File.exists?(directory_path), do: create_directory(Path.dirname(filename))
         create_file(filename, generate(opts))
         :ok
+      end
+
+      defp check_file_existence!(path) do
+        if File.exists?(path) and
+             not Mix.shell().yes?(
+               "A test at #{path} already exists. Are you sure you want to continue?"
+             ) do
+          Mix.raise("Please select another name for your test.")
+        end
       end
     end
   end
