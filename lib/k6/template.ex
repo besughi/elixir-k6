@@ -4,6 +4,23 @@ defmodule K6.Template do
   """
   @default_http_base_url "http://localhost:80"
 
+  @callback generate(keyword) :: :ok
+
+  defmacro __using__(_) do
+    quote do
+      import Mix.Generator
+      import K6.Template
+      @behaviour K6.Template
+
+      @spec generate_and_save(binary, keyword) :: :ok
+      def generate_and_save(filename, opts) do
+        create_directory(Path.dirname(filename))
+        create_file(filename, generate(opts))
+        :ok
+      end
+    end
+  end
+
   def default_http_base_url do
     mix_app = Mix.Project.config()[:app]
     config = Application.get_all_env(mix_app)

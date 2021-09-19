@@ -2,17 +2,12 @@ defmodule K6.Template.Graphql do
   @moduledoc """
   Generates a graphql template
   """
-  import Mix.Generator
+  use K6.Template
 
-  alias K6.Template
-
-  @spec generate(binary, keyword) :: :ok
-  def generate(filename, opts) do
-    url = Keyword.get(opts, :url, Template.default_http_base_url())
-
-    create_directory(Path.dirname(filename))
-    create_file(filename, graphql_template(url: url))
-    :ok
+  @impl true
+  def generate(opts) do
+    url = Keyword.get(opts, :url, default_http_base_url())
+    graphql_template(url: url)
   end
 
   embed_template(:graphql, """

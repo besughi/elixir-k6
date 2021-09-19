@@ -2,15 +2,12 @@ defmodule K6.Template.Grpc do
   @moduledoc """
   Generates a grpc template
   """
-  import Mix.Generator
+  use K6.Template
 
-  @spec generate(binary, keyword) :: :ok
-  def generate(filename, opts) do
+  @impl true
+  def generate(opts) do
     url = Keyword.get(opts, :url, "localhost:9001")
-
-    create_directory(Path.dirname(filename))
-    create_file(filename, grpc_template(url: url))
-    :ok
+    grpc_template(url: url)
   end
 
   embed_template(:grpc, """

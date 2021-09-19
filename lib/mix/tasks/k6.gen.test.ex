@@ -26,7 +26,10 @@ defmodule Mix.Tasks.K6.Gen.Test do
     end
   end
 
-  defp do_generate("rest", filename, opts), do: Template.Rest.generate(filename, opts)
-  defp do_generate("graphql", filename, opts), do: Template.Graphql.generate(filename, opts)
-  defp do_generate("grpc", filename, opts), do: Template.Grpc.generate(filename, opts)
+  defp do_generate("rest", filename, opts), do: Template.Rest.generate_and_save(filename, opts)
+
+  defp do_generate("graphql", filename, opts),
+    do: Template.Graphql.generate_and_save(filename, opts)
+
+  defp do_generate("grpc", filename, opts), do: Template.Grpc.generate_and_save(filename, opts)
 end

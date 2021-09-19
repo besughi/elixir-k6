@@ -2,17 +2,12 @@ defmodule K6.Template.Rest do
   @moduledoc """
   Generates a rest template
   """
-  import Mix.Generator
+  use K6.Template
 
-  alias K6.Template
-
-  @spec generate(binary, keyword) :: :ok
-  def generate(filename, opts) do
-    url = Keyword.get(opts, :url, Template.default_http_base_url())
-
-    create_directory(Path.dirname(filename))
-    create_file(filename, rest_template(url: url))
-    :ok
+  @impl true
+  def generate(opts) do
+    url = Keyword.get(opts, :url, default_http_base_url())
+    rest_template(url: url)
   end
 
   embed_template(:rest, """

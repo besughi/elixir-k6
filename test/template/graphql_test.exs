@@ -6,7 +6,7 @@ defmodule K6.Template.GraphqlTest do
   test "generates a graphql test for the given url", %{tmp_dir: tmp_dir} do
     path = Path.join(tmp_dir, "test")
 
-    Graphql.generate(path, url: "http://api.example.com/graphql")
+    Graphql.generate_and_save(path, url: "http://api.example.com/graphql")
 
     assert File.read!(path) =~ ~s[http.post('http://api.example.com/graphql']
   end
