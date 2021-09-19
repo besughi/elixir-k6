@@ -23,7 +23,8 @@ defmodule Mix.Tasks.K6.Gen.Test do
   alias K6.Template
 
   @switches [
-    type: :string
+    type: :string,
+    url: :string
   ]
 
   @shortdoc "Generate a new k6 test"
@@ -35,7 +36,7 @@ defmodule Mix.Tasks.K6.Gen.Test do
         type = Keyword.get(switches, :type, "rest")
         filename = Path.join(["priv", "k6", test_name <> ".js"])
 
-        do_generate(type, filename, [])
+        do_generate(type, filename, switches)
 
       {_switches, _positional_args} ->
         raise "Please provide a single name for your test."
