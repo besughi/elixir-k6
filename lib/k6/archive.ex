@@ -30,13 +30,7 @@ defmodule K6.Archive do
   end
 
   defp extract_tar_gz(archive_body, filename) do
-    archive =
-      case :erl_tar.open({:binary, archive_body}, [:read, :compressed]) do
-        {:ok, archive} -> archive
-        {:error, error} -> raise "Failed to open archive: #{inspect(error)}"
-      end
-
-    with {:ok, list_dir} <- :erl_tar.table(archive),
+    with {:ok, list_dir} <- :erl_tar.table({:binary, archive_body}, [:compressed]),
          target_file <- Enum.find_value(list_dir, &match_tar_filename(filename, &1)),
          {:ok, [{^target_file, file_content}]} <-
            :erl_tar.extract({:binary, archive_body}, [
@@ -44,11 +38,9 @@ defmodule K6.Archive do
              :compressed,
              :memory
            ]) do
-      :erl_tar.close(archive)
       {:ok, file_content}
     else
       error ->
-        :erl_tar.close(archive)
         error
     end
   end
