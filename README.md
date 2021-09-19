@@ -64,3 +64,10 @@ mix k6 run [<arg>...]
 ```
 
 This will run k6 in the context of your `priv/k6` folder, where your tests reside, and will forward all the provided arguments to k6.
+
+
+### Why load test?
+
+Sometimes you release an elixir application in production and discover that under heavy load it does not perform as expected. :scream:
+
+This happened to some of us recently, that's why for spawnfest 2021 we decided to make load testing easier to our fellow elixir developers! :hugs:
