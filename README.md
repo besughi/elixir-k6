@@ -60,12 +60,14 @@ Custom configuration can be set as follows:
 
 ```elixir
 config :k6,
-  version: "vX.Y.Z"
+  version: "vX.Y.Z",
+  env: [HOST: "localhost:80"]
 ```
 
 Currently, the supported configuration parameters are:
 
 * `version`: the desired version of k6.
+* `env`: environment variables to pass to load tests. K6 will expose those variables within the `__ENV` object.
 
 ### Running k6
 

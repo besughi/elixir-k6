@@ -25,11 +25,20 @@ defmodule Mix.Tasks.K6 do
     opts = [
       cd: test_dir,
       into: IO.stream(:stdio, :line),
-      stderr_to_stdout: true
+      stderr_to_stdout: true,
+      env: k6_env()
     ]
 
     @binary_path
     |> System.cmd(args, opts)
     |> elem(1)
+  end
+
+  defp k6_env() do
+    stringify_key = fn {k, v} -> {to_string(k), v} end
+
+    :k6
+    |> Application.get_env(:env, [])
+    |> Enum.into([], stringify_key)
   end
 end
