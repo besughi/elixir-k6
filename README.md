@@ -21,14 +21,9 @@ end
 ### Installing k6
 
 K6 is automatically installed the first time you run load tests, and it is stored in `_build/k6`.
+In case you want to explicitly install it before running any test, you can run `mix k6.install`.
 
-In case you may want to explicitly install it before running the tests, you can run:
-
-```shell
-mix k6.install
-```
-
-At the moment we support the following architectures:
+At the moment the following architectures are supported:
 
 |  OS   |    Architecture    |
 | :---: | :----------------: |
@@ -58,6 +53,19 @@ Available options to customize the generated test are:
 
 - `--url <url>`: sets the url of the target application. When not provided, the generator will try to detect the url of the configured application, and default to a predefined value (e.g. `localhost:4000` for rest / graphl APIs) otherwise.
 - `--type <test_type>`: defines the template to use for generating the test. Supported types are `graphql`, `rest`, `grpc`, `websocket` and `phoenix-channel`.
+
+### Configuration
+
+Custom configuration can be set as follows:
+
+```elixir
+config :k6,
+  version: "vX.Y.Z"
+```
+
+Currently, the supported configuration parameters are:
+
+* `version`: the desired version of k6.
 
 ### Running k6
 
