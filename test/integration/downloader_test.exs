@@ -7,6 +7,7 @@ defmodule K6.Integration.DownloaderTest do
     :inets.start()
     :ssl.start()
 
-    assert Downloader.download!("v0.34.1")
+    assert {_type, binary} = Downloader.download!("v0.34.1")
+    assert is_binary(binary)
   end
 end
