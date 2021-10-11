@@ -25,13 +25,19 @@ defmodule K6.MixProject do
   defp deps do
     [
       {:castore, ">= 0.1.11"}
-    ] ++ dev_deps()
+    ] ++ dev_deps() ++ test_deps()
   end
 
   defp dev_deps do
     [
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:credo, "~> 1.5", only: [:dev]}
+    ]
+  end
+
+  defp test_deps do
+    [
+      {:bypass, "~> 2.1", only: [:test]}
     ]
   end
 
