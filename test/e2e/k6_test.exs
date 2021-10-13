@@ -19,9 +19,10 @@ defmodule K6.E2e.K6Test do
     generate_test_app(app_path)
     add_k6_dep(app_path)
     generate_load_test(app_path, test_name, bypass.port)
-    exit_code = run_load_test(app_path, test_name)
+    {stdout, exit_code} = run_load_test(app_path, test_name)
 
     assert 0 == exit_code
+    assert stdout =~ "script: #{test_name}.js"
   end
 
   defp generate_test_app(path), do: System.cmd("mix", ["new", path], stderr_to_stdout: true)
@@ -48,7 +49,6 @@ defmodule K6.E2e.K6Test do
   end
 
   defp run_load_test(app_path, test_name) do
-    {_stdout, exit_code} = System.cmd("mix", ["k6", "run", test_name <> ".js"], cd: app_path)
-    exit_code
+    System.cmd("mix", ["k6", "run", test_name <> ".js"], cd: app_path)
   end
 end

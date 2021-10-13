@@ -29,9 +29,8 @@ defmodule Mix.Tasks.K6 do
       env: k6_env()
     ]
 
-    @binary_path
-    |> System.cmd(args, opts)
-    |> elem(1)
+    command = @binary_path <> " " <> Enum.join(args, " ")
+    Mix.shell().cmd(command, opts)
   end
 
   defp k6_env() do
