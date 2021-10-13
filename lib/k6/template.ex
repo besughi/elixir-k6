@@ -23,6 +23,10 @@ defmodule K6.Template do
     end
   end
 
+  def templates_dir do
+    Path.join(Application.app_dir(:k6), "priv/templates/")
+  end
+
   def default_host_and_port do
     mix_app = Mix.Project.config()[:app]
     config = Application.get_all_env(mix_app)
