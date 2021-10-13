@@ -33,7 +33,7 @@ defmodule Mix.Tasks.K6 do
     Mix.shell().cmd(command, opts)
   end
 
-  defp k6_env() do
+  defp k6_env do
     stringify_key = fn {k, v} -> {to_string(k), v} end
 
     :k6
