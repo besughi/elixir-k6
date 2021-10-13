@@ -4,7 +4,7 @@ defmodule K6.Template do
   """
   @default_host_and_port {"localhost", 80}
 
-  @callback generate(keyword) :: binary()
+  @callback create(filename :: String.t(), opts :: keyword) :: boolean()
 
   defmacro __using__(_) do
     quote do
@@ -17,7 +17,7 @@ defmodule K6.Template do
         directory_path = Path.dirname(filename)
 
         unless File.exists?(directory_path), do: create_directory(directory_path)
-        create_file(filename, generate(opts))
+        create(filename, opts)
         :ok
       end
     end

@@ -5,9 +5,9 @@ defmodule K6.Template.PhoenixChannel do
   use K6.Template
 
   @impl true
-  def generate(opts) do
+  def create(filename, opts) do
     url = Keyword.get(opts, :url, default_websocket_url())
-    phoenix_channel_template(url: url)
+    create_file(filename, phoenix_channel_template(url: url))
   end
 
   defp default_websocket_url do

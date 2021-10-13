@@ -5,9 +5,9 @@ defmodule K6.Template.Grpc do
   use K6.Template
 
   @impl true
-  def generate(opts) do
+  def create(filename, opts) do
     url = Keyword.get(opts, :url, "localhost:9001")
-    grpc_template(url: url)
+    create_file(filename, grpc_template(url: url))
   end
 
   embed_template(:grpc, """

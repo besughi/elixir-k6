@@ -5,9 +5,9 @@ defmodule K6.Template.Rest do
   use K6.Template
 
   @impl true
-  def generate(opts) do
+  def create(filename, opts) do
     url = Keyword.get(opts, :url, default_rest_base_url())
-    rest_template(url: url)
+    create_file(filename, rest_template(url: url))
   end
 
   defp default_rest_base_url do

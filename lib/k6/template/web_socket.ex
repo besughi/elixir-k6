@@ -5,9 +5,9 @@ defmodule K6.Template.WebSocket do
   use K6.Template
 
   @impl true
-  def generate(opts) do
+  def create(filename, opts) do
     url = Keyword.get(opts, :url, default_websocket_url())
-    websocket_template(url: url)
+    create_file(filename, websocket_template(url: url))
   end
 
   defp default_websocket_url do

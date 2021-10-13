@@ -1,4 +1,6 @@
 defmodule K6.TestSupport.E2eUtils do
+  @moduledoc false
+
   def generate_test_app(path), do: System.cmd("mix", ["new", path])
 
   def add_k6_dep(app_path) do
