@@ -22,7 +22,7 @@ jobs:
         run: mix deps.get
 
       - name: Run tests
-        run: mix test
+        run: mix test --include end_to_end
 
       - name: Check
         run: mix check

@@ -66,8 +66,8 @@ config :k6,
 
 Currently, the supported configuration parameters are:
 
-* `version`: the desired version of k6.
-* `env`: environment variables to pass to load tests. K6 will expose those variables within the `__ENV` object.
+- `version`: the desired version of k6.
+- `env`: environment variables to pass to load tests. K6 will expose those variables within the `__ENV` object.
 
 ### Running k6
 
@@ -85,3 +85,26 @@ Make sure your server is up before running load tests.
 Sometimes you release an elixir application in production and discover that under heavy load it does not perform as expected. :scream:
 
 This happened to some of us recently, that's why for spawnfest 2021 we decided to make load testing easier to our fellow elixir developers! :hugs:
+
+## Contributing
+
+Issues and contributions are welcome!
+
+To run static analysis run:
+
+```shell
+mix check
+```
+
+To execute tests run:
+
+```shell
+mix test
+```
+
+The test suite also includes some end-to-end tests, which are not executed by default as they are much slower.
+To execute all tests run:
+
+```shell
+mix test --include end_to_end
+```

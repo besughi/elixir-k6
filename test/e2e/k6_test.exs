@@ -1,7 +1,9 @@
 defmodule K6.E2e.K6Test do
-  use ExUnit.Case, async: true
+  use ExUnit.Case
 
   alias K6.TestSupport.E2eUtils
+
+  @moduletag :end_to_end
 
   setup do
     bypass = Bypass.open()
