@@ -17,11 +17,11 @@ export default class Channel {
         this.socket = socket;
         socket.on("open", () => this._send("phx_join", payload, callback));
         socket.on("message", (response) => {
-          const data = JSON.parse(response);
-          if (data.ref != null) {
-            this.callbacks[data.ref](this._parsePayload(data.payload));
+          const message = this._parseMessage(response);
+          if (message.ref != null) {
+            this.callbacks[message.ref](message);
           } else {
-            this.broadcastCallback(this._parsePayload(data.payload));
+            this.broadcastCallback(message);
           }
         });
         socket.on("close", () => {});
@@ -39,22 +39,14 @@ export default class Channel {
 
   _send(event, payload, callback) {
     this.socket.send(
-      JSON.stringify({
-        topic: this.topic,
-        event: event,
-        payload: JSON.stringify(payload),
-        ref: this.messageRef,
-      })
+      JSON.stringify([null, this.messageRef, this.topic, event, payload])
     );
     this.callbacks[this.messageRef] = callback;
     this.messageRef += 1;
   }
 
-  _parsePayload(payload) {
-    try {
-      return JSON.parse(payload.response);
-    } catch (e) {
-      return payload.response;
-    }
+  _parseMessage(message) {
+    let [joinRef, msgRef, topic, event, payload] = JSON.parse(message);
+    return { joinRef, ref: msgRef, topic, event, payload };
   }
 }

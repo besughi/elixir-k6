@@ -12,6 +12,6 @@ defmodule K6.Template.PhoenixChannel do
 
   defp default_websocket_url do
     {host, port} = default_host_and_port()
-    "ws://#{host}:#{port}/socket/websocket"
+    "ws://#{host}:#{port}/socket/websocket?vsn=2.0.0"
   end
 end
