@@ -8,6 +8,6 @@ defmodule K6.Template.GrpcTest do
 
     Grpc.generate_and_save(path, url: "http://api.example.com/")
 
-    assert File.read!(path) =~ ~s[client.connect('http://api.example.com/', { plaintext: false })]
+    assert File.read!(path) =~ ~s[client.connect("http://api.example.com/", { plaintext: false })]
   end
 end

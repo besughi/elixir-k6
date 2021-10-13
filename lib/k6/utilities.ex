@@ -4,6 +4,7 @@ defmodule K6.Utilities do
   """
 
   import Mix.Generator
+  alias K6.Template
 
   @spec generate(binary()) :: :ok
   def generate(path) do
@@ -17,7 +18,7 @@ defmodule K6.Utilities do
 
   defp create_phoenix_channel(path) do
     target_path = Path.join([path, "phoenix-channel.js"])
-    original_path = Path.join(K6.Template.templates_dir(), "utilities/phoenix-channel.js")
+    original_path = Template.template_path("utilities/phoenix-channel.js")
 
     copy_file(original_path, target_path)
   end

@@ -23,8 +23,8 @@ defmodule K6.Template do
     end
   end
 
-  def templates_dir do
-    Path.join(Application.app_dir(:k6), "priv/templates/")
+  def template_path(template) do
+    Path.join([Application.app_dir(:k6), "priv/templates/", template])
   end
 
   def default_host_and_port do

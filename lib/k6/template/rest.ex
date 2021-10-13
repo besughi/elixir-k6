@@ -7,23 +7,11 @@ defmodule K6.Template.Rest do
   @impl true
   def create(filename, opts) do
     url = Keyword.get(opts, :url, default_rest_base_url())
-    create_file(filename, rest_template(url: url))
+    copy_template(template_path("rest.js"), filename, url: url)
   end
 
   defp default_rest_base_url do
     {host, port} = default_host_and_port()
     "http://#{host}:#{port}"
   end
-
-  embed_template(:rest, """
-  import http from 'k6/http';
-  import {check, sleep} from 'k6';
-
-  export default function() {
-    const data = {};
-    let res = http.post('<%= @url %>', data);
-      check(res, { 'success': (r) => r.status === 200 });
-      sleep(0.3);
-  }
-  """)
 end

@@ -8,7 +8,7 @@ defmodule K6.Template.WebSocketTest do
 
     WebSocket.generate_and_save(path, url: "ws://example.com/")
 
-    assert File.read!(path) =~ ~s['ws://example.com/']
+    assert File.read!(path) =~ ~s["ws://example.com/"]
     assert File.read!(path) =~ ~s[ws.connect]
   end
 end
