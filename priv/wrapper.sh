@@ -11,7 +11,7 @@ exec >/dev/null 2>&1
 # Fd[3] is the file descriptor used by the BEAM to communicate with this
 # process (kind-of a fake stdin), since we are using :nouse_stdio with our port
 {
-  while read -u 3; do :; done
+  while read _ <&3; do :; done
   kill -TERM $program_pid
 } &
 
