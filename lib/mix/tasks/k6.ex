@@ -12,6 +12,7 @@ defmodule Mix.Tasks.K6 do
       $ mix k6 run my_test.js
   """
   use Mix.Task
+  require Logger
 
   @binary_path Path.join(Path.dirname(Mix.Project.build_path()), "k6")
 
@@ -22,22 +23,31 @@ defmodule Mix.Tasks.K6 do
     test_dir = Path.join(["priv", "k6"])
     unless File.exists?(test_dir), do: File.mkdir_p(test_dir)
 
-    opts = [
-      cd: test_dir,
-      into: IO.stream(:stdio, :line),
-      stderr_to_stdout: true,
+    options = [
+      :nouse_stdio,
+      :exit_status,
+      args: args,
+      cd: String.to_charlist(test_dir),
       env: k6_env()
     ]
 
-    command = @binary_path <> " " <> Enum.join(args, " ")
-    Mix.shell().cmd(command, opts)
+    Logger.debug("Running k6 with args #{args} and env #{inspect(options[:env])}")
+
+    port = Port.open({:spawn_executable, @binary_path}, options)
+
+    receive do
+      {^port, {:exit_status, exit_status}} ->
+        Logger.debug("K6 exited with status #{exit_status}")
+        exit_status
+    end
   end
 
   defp k6_env do
-    stringify_key = fn {k, v} -> {to_string(k), v} end
+    stringify = fn s -> String.to_charlist(to_string(s)) end
+    stringify_kv = fn {k, v} -> {stringify.(k), stringify.(v)} end
 
     :k6
     |> Application.get_env(:env, [])
-    |> Enum.into([], stringify_key)
+    |> Enum.into([], stringify_kv)
   end
 end
