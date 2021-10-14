@@ -15,6 +15,7 @@ defmodule Mix.Tasks.K6 do
   require Logger
 
   @binary_path Path.join(Path.dirname(Mix.Project.build_path()), "k6")
+  @wrapper_path Path.join(Application.app_dir(:k6), "priv/wrapper.sh")
 
   @shortdoc "Runs k6"
   def run(args) when is_list(args) do
@@ -23,17 +24,21 @@ defmodule Mix.Tasks.K6 do
     test_dir = Path.join(["priv", "k6"])
     unless File.exists?(test_dir), do: File.mkdir_p(test_dir)
 
+    wrapper_args = [@binary_path | args]
+
     options = [
       :nouse_stdio,
       :exit_status,
-      args: args,
+      args: wrapper_args,
       cd: String.to_charlist(test_dir),
       env: k6_env()
     ]
 
-    Logger.debug("Running k6 with args #{args} and env #{inspect(options[:env])}")
+    Logger.debug(
+      "Running k6 with args #{inspect(wrapper_args)} and env #{inspect(options[:env])}"
+    )
 
-    port = Port.open({:spawn_executable, @binary_path}, options)
+    port = Port.open({:spawn_executable, @wrapper_path}, options)
 
     receive do
       {^port, {:exit_status, exit_status}} ->
