@@ -14,17 +14,14 @@ defmodule Mix.Tasks.K6 do
   use Mix.Task
   require Logger
 
-  @binary_path Path.join(Path.dirname(Mix.Project.build_path()), "k6")
-  @wrapper_path Path.join(Application.app_dir(:k6), "priv/wrapper.sh")
-
   @shortdoc "Runs k6"
   def run(args) when is_list(args) do
-    unless File.exists?(@binary_path), do: Mix.Task.run("k6.install")
+    unless File.exists?(binary_path()), do: Mix.Task.run("k6.install")
 
     test_dir = Path.join(["priv", "k6"])
     unless File.exists?(test_dir), do: File.mkdir_p(test_dir)
 
-    wrapper_args = [@binary_path | args]
+    wrapper_args = [binary_path() | args]
 
     options = [
       :nouse_stdio,
@@ -38,7 +35,7 @@ defmodule Mix.Tasks.K6 do
       "Running k6 with args #{inspect(wrapper_args)} and env #{inspect(options[:env])}"
     )
 
-    port = Port.open({:spawn_executable, @wrapper_path}, options)
+    port = Port.open({:spawn_executable, wrapper_path()}, options)
 
     receive do
       {^port, {:exit_status, exit_status}} ->
@@ -55,4 +52,7 @@ defmodule Mix.Tasks.K6 do
     |> Application.get_env(:env, [])
     |> Enum.into([], stringify_kv)
   end
+
+  def binary_path, do: Path.join(Path.dirname(Mix.Project.build_path()), "k6")
+  def wrapper_path, do: Path.join(Application.app_dir(:k6), "priv/wrapper.sh")
 end
