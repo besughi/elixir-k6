@@ -1,25 +1,31 @@
 import ws from "k6/ws";
+import { URL } from "https://jslib.k6.io/url/1.0.0/index.js";
 
 export default class Channel {
-  constructor(url, topic, broadcastCallback) {
-    this.url = url;
+  constructor(url, topic, params, broadcastCallback) {
+    this.url = new URL(url);
     this.topic = topic;
+    this.params = params;
     this.broadcastCallback = broadcastCallback;
     this.callbacks = {};
-    this.messageRef = 0;
+    this.messageRef = 4;
+    this.joinRef = 4; // TODO make it dynamic?
+
+    this.websocket_url.searchParams.append("vsn", "2.0.0");
   }
 
   join(payload, callback) {
     ws.connect(
-      this.url,
-      {},
+      this.url.toString(),
+      this.params,
       function (socket) {
         this.socket = socket;
         socket.on("open", () => this._send("phx_join", payload, callback));
         socket.on("message", (response) => {
           const message = this._parseMessage(response);
+
           if (message.ref != null) {
-            this.callbacks[message.ref](message);
+            this.callbacks[message.ref.toString()](message);
           } else {
             this.broadcastCallback(message);
           }
@@ -38,15 +44,28 @@ export default class Channel {
   }
 
   _send(event, payload, callback) {
-    this.socket.send(
-      JSON.stringify([null, this.messageRef, this.topic, event, payload])
-    );
-    this.callbacks[this.messageRef] = callback;
+    let message = JSON.stringify([
+      this.joinRef.toString(),
+      this.messageRef.toString(),
+      this.topic,
+      event,
+      payload,
+    ]);
+    this.socket.send(message);
+
+    this.callbacks[this.messageRef.toString()] = callback;
+    this.callbacks["aa"] = callback;
     this.messageRef += 1;
   }
 
   _parseMessage(message) {
     let [joinRef, msgRef, topic, event, payload] = JSON.parse(message);
-    return { joinRef, ref: msgRef, topic, event, payload };
+    return {
+      joinRef: joinRef,
+      ref: msgRef,
+      topic: topic,
+      event: event,
+      payload: payload,
+    };
   }
 }
