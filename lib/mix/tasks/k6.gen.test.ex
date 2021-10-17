@@ -15,7 +15,7 @@ defmodule Mix.Tasks.K6.Gen.Test do
 
   ## Command line options
 
-    * `--type` - the template to use to generate the new test. Supported types are `rest` (default), `graphql`, `grpc`, `websocket` and `phoenix-channel`.
+    * `--type` - the template to use to generate the new test. Supported types are `rest` (default), `graphql`, `grpc`, `websocket`, `phoenix-channel` and `liveview`.
     * `--url` - the url of the target application. When not set, the generator will try to detect it automatically.
   """
   use Mix.Task
@@ -54,6 +54,9 @@ defmodule Mix.Tasks.K6.Gen.Test do
 
   defp do_generate("phoenix-channel", filename, opts),
     do: Template.PhoenixChannel.generate_and_save(filename, opts)
+
+  defp do_generate("liveview", filename, opts),
+    do: Template.Liveview.generate_and_save(filename, opts)
 
   defp do_generate("websocket", filename, opts),
     do: Template.WebSocket.generate_and_save(filename, opts)

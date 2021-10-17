@@ -22,17 +22,19 @@ defmodule K6.E2e.TestGenerationTest do
     File.rm_rf!(tests_dir(app_path))
   end
 
-  test "generates phoenix channel template and utilities", %{app_path: app_path} do
+  test "generates utilities for channels and liveview", %{app_path: app_path} do
     test_name = "sample_test"
 
-    E2eUtils.generate_load_test(app_path, [test_name, "--type", "phoenix-channel"])
+    E2eUtils.generate_load_test(app_path, [test_name, "--type", "liveview"])
 
     dir = tests_dir(app_path)
-    utilities = File.read!(Path.join(dir, "utilities/phoenix-channel.js"))
+    channel_utilities = File.read!(Path.join(dir, "utilities/phoenix-channel.js"))
+    liveview_utilities = File.read!(Path.join(dir, "utilities/phoenix-liveview.js"))
     test_stub = File.read!(Path.join(dir, test_name <> ".js"))
 
-    assert utilities =~ "export default class Channel"
-    assert test_stub =~ "let channel = new Channel("
+    assert channel_utilities =~ "export default class Channel"
+    assert liveview_utilities =~ "export default class Liveview"
+    assert test_stub =~ "let liveview = new Liveview("
   end
 
   defp tests_dir(app_path), do: Path.join(app_path, "priv/k6")

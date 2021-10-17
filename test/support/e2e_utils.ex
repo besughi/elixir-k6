@@ -12,19 +12,25 @@ defmodule K6.TestSupport.E2eUtils do
     |> String.replace("deps: deps()", "deps: [#{k6_dep} | deps()]")
     |> then(&File.write!(mix_file, &1))
 
-    System.cmd("mix", ["deps.get"], cd: app_path)
+    command("mix", ["deps.get"], app_path)
   end
 
   def generate_load_test(app_path, args) do
-    System.cmd(
+    command(
       "mix",
       ["k6.gen.test" | args],
-      cd: app_path,
-      stderr_to_stdout: true
+      app_path
     )
   end
 
   def run_load_test(app_path, test_name) do
-    System.cmd("mix", ["k6", "run", test_name <> ".js"], cd: app_path)
+    command("mix", ["k6", "run", test_name <> ".js"], app_path)
+  end
+
+  defp command(cmd, args, app_path) do
+    case System.cmd(cmd, args, cd: app_path) do
+      {stdout, 0} -> {stdout, 0}
+      {_, exit_code} -> raise "Command #{cmd} #{inspect(args)} failed with exit code #{exit_code}"
+    end
   end
 end
