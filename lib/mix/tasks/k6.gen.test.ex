@@ -60,4 +60,11 @@ defmodule Mix.Tasks.K6.Gen.Test do
 
   defp do_generate("websocket", filename, opts),
     do: Template.WebSocket.generate_and_save(filename, opts)
+
+  defp do_generate(type, _, _) do
+    Mix.raise("""
+    Type "#{type}" is not valid.
+    Sypported types are `rest` (default), `graphql`, `grpc`, `websocket`, `phoenix-channel` and `liveview`
+    """)
+  end
 end

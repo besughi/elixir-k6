@@ -20,9 +20,10 @@ defmodule K6.E2e.K6Test do
     test_name = "sample_test"
     Bypass.expect(bypass, &Plug.Conn.resp(&1, 200, "sample response"))
 
-    E2eUtils.generate_test_app(app_path)
-    E2eUtils.add_k6_dep(app_path)
-    E2eUtils.generate_load_test(app_path, [test_name, "--url", "http://localhost:#{bypass.port}"])
+    E2eUtils.generate_test_app!(app_path)
+    E2eUtils.add_k6_dep!(app_path)
+    E2eUtils.generate_load_test!(app_path, [test_name, "--url", "http://localhost:#{bypass.port}"])
+
     {stdout, exit_code} = E2eUtils.run_load_test(app_path, test_name)
 
     assert 0 == exit_code
