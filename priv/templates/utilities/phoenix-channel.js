@@ -11,7 +11,7 @@ export default class Channel {
     this.messageRef = 4;
     this.joinRef = 4; // TODO make it dynamic?
 
-    this.websocket_url.searchParams.append("vsn", "2.0.0");
+    this.url.searchParams.append("vsn", "2.0.0");
   }
 
   join(payload, callback) {

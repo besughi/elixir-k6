@@ -17,7 +17,7 @@ defmodule K6.Template.Liveview do
 
   defp default_websocket_url do
     {host, port} = default_host_and_port()
-    "ws://#{host}:#{port}/socket/websocket?vsn=2.0.0"
+    "ws://#{host}:#{port}/live/websocket?vsn=2.0.0"
   end
 
   defp http_url(websocket_url) do
