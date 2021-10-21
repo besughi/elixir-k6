@@ -2,7 +2,8 @@ defmodule Mix.Tasks.K6.Gen.Test do
   @moduledoc """
   Generate a new k6 test.
 
-  The tests will be placed in the `priv/k6` folder of your project.
+  Tests will be placed in the `priv/k6` folder of your project by default.
+  This can be customized via the `:k6, :workdir` configuration.
   By default a test for a generic rest-like API will be generated.
   However, the template to use for the generation of tests can be specified
   via the `--type` flag.
@@ -35,9 +36,9 @@ defmodule Mix.Tasks.K6.Gen.Test do
     case OptionParser.parse!(args, strict: @switches, aliases: []) do
       {switches, [test_name]} ->
         type = Keyword.get(switches, :type, "rest")
-        filename = Path.join(["priv", "k6", test_name <> ".js"])
+        filename = Path.join([tests_directory(), test_name <> ".js"])
 
-        Utilities.generate(Path.join(["priv", "k6", "utilities"]))
+        Utilities.generate(Path.join(tests_directory(), "utilities"))
         do_generate(type, filename, switches)
 
       {_switches, _positional_args} ->
@@ -67,4 +68,6 @@ defmodule Mix.Tasks.K6.Gen.Test do
     Sypported types are `rest` (default), `graphql`, `grpc`, `websocket`, `phoenix-channel` and `liveview`
     """)
   end
+
+  defp tests_directory, do: Application.get_env(:k6, :workdir, "priv/k6")
 end

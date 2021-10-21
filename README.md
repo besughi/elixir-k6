@@ -47,7 +47,7 @@ To generate new k6 tests run:
 mix k6.gen.test <testname>
 ```
 
-These tests will be placed under the `priv/k6` directory of your project.
+By default these tests will be placed under the `priv/k6` directory of your project.
 
 Available options to customize the generated test are:
 
@@ -61,13 +61,15 @@ Custom configuration can be set as follows:
 ```elixir
 config :k6,
   version: "vX.Y.Z",
-  env: [HOST: "localhost:80"]
+  env: [HOST: "localhost:80"],
+  workdir: "priv/my_load_tests_dir"
 ```
 
 Currently, the supported configuration parameters are:
 
-- `version`: the desired version of k6.
-- `env`: environment variables to pass to load tests. K6 will expose those variables within the `__ENV` object.
+- `version`: the desired version of k6. Defaults to `v0.34.1`.
+- `env`: environment variables to pass to load tests. K6 will expose those variables to load test scripts within the `__ENV` object.
+- `workdir`: path of the directory that contains k6 load tests. Relative to the project, defaults to `priv/k6`.
 
 ### Running k6
 
@@ -77,7 +79,7 @@ Once you have defined some tests, you can run k6 as follows:
 mix k6 run [<arg>...]
 ```
 
-This will run k6 in the context of your `priv/k6` folder, where your tests reside, and will forward all the provided arguments to k6.
+This will run k6 in the context of your load tests folder, and will forward all the provided arguments to k6.
 Make sure your server is up before running load tests.
 
 ### Why load test?
