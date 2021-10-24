@@ -13,7 +13,6 @@ defmodule Mix.Tasks.K6 do
       $ mix k6 run --vus 10 --duration 30s my_test.js
   """
   use Mix.Task
-  require Logger
 
   @shortdoc "Runs k6"
   def run(args) when is_list(args) do
@@ -32,16 +31,10 @@ defmodule Mix.Tasks.K6 do
       env: k6_env()
     ]
 
-    Logger.debug(
-      "Running k6 with args #{inspect(wrapper_args)} and env #{inspect(options[:env])} in #{test_dir}"
-    )
-
     port = Port.open({:spawn_executable, wrapper_path()}, options)
 
     receive do
-      {^port, {:exit_status, exit_status}} ->
-        Logger.debug("K6 exited with status #{exit_status}")
-        exit_status
+      {^port, {:exit_status, exit_status}} -> exit_status
     end
   end
 
