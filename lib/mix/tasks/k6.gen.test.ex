@@ -8,16 +8,16 @@ defmodule Mix.Tasks.K6.Gen.Test do
   However, the template to use for the generation of tests can be specified
   via the `--type` flag.
 
+  ## Command line options
+
+    * `--type` - the template to use to generate the new test. Supported types are `rest` (default), `graphql`, `grpc`, `websocket`, `phoenix-channel` and `liveview`.
+    * `--url` - the url of the target application. When not set, the generator will try to detect it automatically.
+
   ## Examples
 
       $ mix k6.gen.test test_name
       $ mix k6.gen.test --type graphql test_name
       $ mix k6.gen.test --url "http://localhost:8000" test_name
-
-  ## Command line options
-
-    * `--type` - the template to use to generate the new test. Supported types are `rest` (default), `graphql`, `grpc`, `websocket`, `phoenix-channel` and `liveview`.
-    * `--url` - the url of the target application. When not set, the generator will try to detect it automatically.
   """
   use Mix.Task
 
