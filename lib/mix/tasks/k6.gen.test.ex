@@ -41,6 +41,14 @@ defmodule Mix.Tasks.K6.Gen.Test do
         Utilities.generate(Path.join(tests_directory(), "utilities"))
         do_generate(type, filename, switches)
 
+        Mix.shell().info("""
+
+        Edit `#{filename}` to customize your load test.
+        Once you're done run `mix k6 run #{test_name}.js` to execute it.
+
+        For more info about running k6 see https://k6.io/docs/getting-started/running-k6/.
+        """)
+
       {_switches, _positional_args} ->
         Mix.raise("Please provide a single name for your test.")
     end
