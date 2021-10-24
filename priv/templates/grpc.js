@@ -1,6 +1,12 @@
 import grpc from "k6/net/grpc";
 import { check } from "k6";
 
+// See https://k6.io/docs/using-k6/options/#using-options for documentation on k6 options
+export const options = {
+  vus: 10,
+  duration: '30s',
+};
+
 const client = new grpc.Client();
 client.load(["definitions"], "hello.proto");
 
