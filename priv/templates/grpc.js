@@ -13,6 +13,7 @@ client.load(["definitions"], "hello.proto");
 export default () => {
   client.connect("<%= @url %>", { plaintext: false });
 
+  // See https://k6.io/docs/using-k6/protocols/grpc/ for documentation on k6 and gRPC
   const data = { greeting: "Bert" };
   const response = client.invoke("hello.HelloService/SayHello", data);
   check(response, {

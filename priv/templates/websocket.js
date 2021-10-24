@@ -11,6 +11,7 @@ export default function () {
   const url = "<%= @url %>";
   const params = { tags: { my_tag: "hello" } };
 
+  // See https://k6.io/docs/using-k6/protocols/websockets/ for documentation on k6 and websockets
   const res = ws.connect(url, params, function (socket) {
     socket.on("open", () => console.log("connected"));
     socket.on("message", (data) => console.log("Message received: ", data));
