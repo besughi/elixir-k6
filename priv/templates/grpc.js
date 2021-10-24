@@ -11,6 +11,10 @@ const client = new grpc.Client();
 client.load(["definitions"], "hello.proto");
 
 export default () => {
+  // To set dynamic (e.g. environment-specific) configuration, pass it either as environment
+  // variable when invoking k6 or by setting `:k6, env: [key: "value"]` in your `config.exs`,
+  // and then access it from `__ENV`, e.g.: `const url = __ENV.url`
+
   client.connect("<%= @url %>", { plaintext: false });
 
   // See https://k6.io/docs/using-k6/protocols/grpc/ for documentation on k6 and gRPC

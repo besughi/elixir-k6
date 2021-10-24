@@ -8,6 +8,10 @@ export const options = {
 };
 
 export default function () {
+  // To set dynamic (e.g. environment-specific) configuration, pass it either as environment
+  // variable when invoking k6 or by setting `:k6, env: [key: "value"]` in your `config.exs`,
+  // and then access it from `__ENV`, e.g.: `const url = __ENV.url`
+
   let baseUrl = "<%= @url %>";
 
   // See https://k6.io/docs/using-k6/protocols/http-2/ for documentation on k6 and HTTP

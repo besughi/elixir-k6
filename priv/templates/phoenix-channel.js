@@ -8,6 +8,10 @@ export const options = {
 };
 
 export default function () {
+  // To set dynamic (e.g. environment-specific) configuration, pass it either as environment
+  // variable when invoking k6 or by setting `:k6, env: [key: "value"]` in your `config.exs`,
+  // and then access it from `__ENV`, e.g.: `const url = __ENV.url`
+
   let broadcastCallback = () => {};
   let channel = new Channel("<%= @url %>", "my_room:lobby", broadcastCallback);
 
