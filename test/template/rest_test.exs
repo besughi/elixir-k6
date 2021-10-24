@@ -8,6 +8,7 @@ defmodule K6.Template.RestTest do
 
     Rest.generate_and_save(path, url: "http://api.example.com/")
 
-    assert File.read!(path) =~ ~s[let res = http.post("http://api.example.com/", data);]
+    assert File.read!(path) =~ ~s[let baseUrl = "http://api.example.com/";]
+    assert File.read!(path) =~ ~s[let res = http.get(baseUrl);]
   end
 end

@@ -8,8 +8,8 @@ export const options = {
 };
 
 export default function () {
-  const data = {};
-  let res = http.post("<%= @url %>", data);
+  let baseUrl = "<%= @url %>";
+  let res = http.get(baseUrl);
   check(res, { success: (r) => r.status === 200 });
   sleep(0.3);
 }
