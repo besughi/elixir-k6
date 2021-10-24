@@ -4,24 +4,24 @@ import { parseHTML } from "k6/html";
 import { URL } from "https://jslib.k6.io/url/1.0.0/index.js";
 
 export default class Liveview {
-  constructor(url, websocket_url) {
+  constructor(url, websocketUrl) {
     this.url = new URL(url);
-    this.websocket_url = new URL(websocket_url);
+    this.websocketUrl = new URL(websocketUrl);
     this.channel = null;
   }
 
-  connect(callback, parse_body = this._parse_body) {
+  connect(callback, parseBody = this._parseBody) {
     let response = http.get(this.url.toString());
-    let { csrf_token, phx_id, phx_session, phx_static } = parse_body(
+    let { csrfToken, phxId, phxSession, phxStatic } = parseBody(
       response.body
     );
 
-    this.websocket_url.searchParams.append("vsn", "2.0.0");
-    this.websocket_url.searchParams.append("_csrf_token", csrf_token);
+    this.websocketUrl.searchParams.append("vsn", "2.0.0");
+    this.websocketUrl.searchParams.append("_csrf_token", csrfToken);
 
     this.channel = new Channel(
-      this.websocket_url.toString(),
-      `lv:${phx_id}`,
+      this.websocketUrl.toString(),
+      `lv:${phxId}`,
       this._params(response.cookies),
       () => {}
     );
@@ -29,8 +29,8 @@ export default class Liveview {
     this.channel.join(
       {
         url: this.url.toString(),
-        session: phx_session,
-        static: phx_static,
+        session: phxSession,
+        static: phxStatic,
       },
       callback
     );
@@ -45,36 +45,36 @@ export default class Liveview {
   }
 
   _params(cookies) {
-    return { headers: { Cookie: this._cookie_header_for(cookies) } };
+    return { headers: { Cookie: this._cookieHeaderFor(cookies) } };
   }
 
-  _cookie_header_for(all_cookies) {
+  _cookieHeaderFor(allCookies) {
     // unfortunately the websocket client from k6 does not natively support cookies,
     // so we have to work around that issue by building the Cookie header ourselves
-    let cookie_header = "";
-    for (const [_name, cookies] of Object.entries(all_cookies)) {
+    let cookieHeader = "";
+    for (const [_name, cookies] of Object.entries(allCookies)) {
       for (const cookie of cookies) {
-        cookie_header += ` ${cookie.name}=${cookie.value};`;
+        cookieHeader += ` ${cookie.name}=${cookie.value};`;
       }
     }
-    return cookie_header;
+    return cookieHeader;
   }
 
-  _parse_body(body) {
+  _parseBody(body) {
     let doc = parseHTML(body);
-    let csrf_token = doc.find('input[name="_csrf_token"]').attr("value");
+    let csrfToken = doc.find('input[name="_csrf_token"]').attr("value");
 
-    let phx_main = doc.find('div[data-phx-main="true"]');
-    let phx_id = phx_main.attr("id");
-    let phx_session = phx_main.attr("data-phx-session");
-    let phx_static = phx_main.attr("data-phx-static");
+    let phxMain = doc.find('div[data-phx-main="true"]');
+    let phxId = phxMain.attr("id");
+    let phxSession = phxMain.attr("data-phx-session");
+    let phxStatic = phxMain.attr("data-phx-static");
 
     return {
-      csrf_token,
-      phx_main,
-      phx_id,
-      phx_session,
-      phx_static,
+      csrfToken,
+      phxMain,
+      phxId,
+      phxSession,
+      phxStatic,
     };
   }
 }
