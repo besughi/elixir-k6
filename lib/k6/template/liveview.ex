@@ -5,6 +5,9 @@ defmodule K6.Template.Liveview do
   use K6.Template
 
   @impl true
+  def needs_utilities, do: ["phoenix-channel.js", "phoenix-liveview.js"]
+
+  @impl true
   def create(filename, opts) do
     websocket_url = Keyword.get(opts, :url, default_websocket_url())
     http_url = http_url(websocket_url)

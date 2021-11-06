@@ -6,22 +6,21 @@ defmodule K6.Utilities do
   import Mix.Generator
   alias K6.Template
 
-  @utilities ["phoenix-channel.js", "phoenix-liveview.js"]
+  @spec create(String.t(), [String.t()]) :: :ok
+  def create(_, []), do: :ok
 
-  @spec generate(binary()) :: :ok
-  def generate(path) do
-    unless File.exists?(path) do
-      create_directory(path)
-      for utility <- @utilities, do: create_utility(path, utility)
-    end
+  def create(tests_directory, utilities) do
+    for utility <- utilities, do: create_utility(tests_directory, utility)
 
     :ok
   end
 
   defp create_utility(path, utility) do
-    target_path = Path.join([path, utility])
-    original_path = Template.template_path("utilities/" <> utility)
+    target_path = Path.join([path, "utilities", utility])
 
-    copy_file(original_path, target_path)
+    unless File.exists?(target_path) do
+      original_path = Template.template_path("utilities/" <> utility)
+      copy_file(original_path, target_path)
+    end
   end
 end

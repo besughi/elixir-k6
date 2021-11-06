@@ -5,6 +5,9 @@ defmodule K6.Template.PhoenixChannel do
   use K6.Template
 
   @impl true
+  def needs_utilities, do: ["phoenix-channel.js"]
+
+  @impl true
   def create(filename, opts) do
     url = Keyword.get(opts, :url, default_websocket_url())
     copy_template(template_path("phoenix-channel.js"), filename, url: url)

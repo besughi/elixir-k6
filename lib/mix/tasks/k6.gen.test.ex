@@ -22,7 +22,6 @@ defmodule Mix.Tasks.K6.Gen.Test do
   use Mix.Task
 
   alias K6.Template
-  alias K6.Utilities
 
   @switches [
     type: :string,
@@ -38,7 +37,6 @@ defmodule Mix.Tasks.K6.Gen.Test do
         type = Keyword.get(switches, :type, "rest")
         filename = Path.join([tests_directory(), test_name <> ".js"])
 
-        Utilities.generate(Path.join(tests_directory(), "utilities"))
         do_generate(type, filename, switches)
 
         Mix.shell().info("""
