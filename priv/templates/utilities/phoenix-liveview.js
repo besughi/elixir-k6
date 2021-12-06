@@ -62,7 +62,7 @@ export default class Liveview {
 
   _parseBody(body) {
     let doc = parseHTML(body);
-    let csrfToken = doc.find('input[name="_csrf_token"]').attr("value");
+    let csrfToken = doc.find('meta[name="csrf-token"]').attr("content");
 
     let phxMain = doc.find('div[data-phx-main="true"]');
     let phxId = phxMain.attr("id");
