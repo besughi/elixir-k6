@@ -21,8 +21,8 @@ jobs:
       - name: Install dependencies
         run: mix deps.get
 
-      - name: Run tests
-        run: mix test --include end_to_end
-
       - name: Check
         run: mix check
+
+      - name: Run tests
+        run: mix test --include end_to_end
