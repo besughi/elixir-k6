@@ -32,7 +32,7 @@ defmodule K6.MixProject do
   defp dev_deps do
     [
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
-      {:credo, "~> 1.5", only: [:dev]}
+      {:credo, "~> 1.6", only: [:dev]}
     ]
   end
 
