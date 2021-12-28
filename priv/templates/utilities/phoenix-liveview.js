@@ -44,22 +44,6 @@ export default class Liveview {
     this.channel.send(event, payload, callback);
   }
 
-  _params(cookies) {
-    return { headers: { Cookie: this._cookieHeaderFor(cookies) } };
-  }
-
-  _cookieHeaderFor(allCookies) {
-    // unfortunately the websocket client from k6 does not natively support cookies,
-    // so we have to work around that issue by building the Cookie header ourselves
-    let cookieHeader = "";
-    for (const [_name, cookies] of Object.entries(allCookies)) {
-      for (const cookie of cookies) {
-        cookieHeader += ` ${cookie.name}=${cookie.value};`;
-      }
-    }
-    return cookieHeader;
-  }
-
   _parseBody(body) {
     let doc = parseHTML(body);
     let csrfToken = doc.find('meta[name="csrf-token"]').attr("content");
