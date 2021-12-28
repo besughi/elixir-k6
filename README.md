@@ -53,7 +53,7 @@ config :k6,
 
 The supported configuration parameters are:
 
-- `version`: the desired version of k6. Defaults to `v0.34.1`.
+- `version`: the desired version of k6. Defaults to `v0.35.0`.
 - `env`: environment variables to pass to load tests. K6 will expose those variables to load test scripts within the `__ENV` object.
 - `workdir`: path of the directory that contains k6 load tests. Relative to the project, defaults to `priv/k6`.
 
@@ -71,7 +71,7 @@ At the moment the following architectures are supported:
 | Linux |       amd64        |
 | Linux | arm64 (not tested) |
 
-By default the installation task will install k6 version `v0.34.1`.
+By default the installation task will install k6 version `v0.35.0`.
 You can override this in your config file, as documented above.
 
 ## Contributing

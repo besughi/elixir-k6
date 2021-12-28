@@ -11,7 +11,7 @@ defmodule Mix.Tasks.K6.Install do
       config :k6,
         version: "vX.Y.Z"
 
-  By default version `v0.34.1` is installed.
+  By default version `v0.35.0` is installed.
 
   ## Examples
 
