@@ -54,7 +54,6 @@ export default class Channel {
     this.socket.send(message);
 
     this.callbacks[this.messageRef.toString()] = callback;
-    this.callbacks["aa"] = callback;
     this.messageRef += 1;
   }
 

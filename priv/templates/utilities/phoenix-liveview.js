@@ -4,10 +4,11 @@ import { parseHTML } from "k6/html";
 import { URL } from "https://jslib.k6.io/url/1.0.0/index.js";
 
 export default class Liveview {
-  constructor(url, websocketUrl) {
+  constructor(url, websocketUrl, params = {}) {
     this.url = new URL(url);
     this.websocketUrl = new URL(websocketUrl);
     this.channel = null;
+    this.params = params;
   }
 
   connect(callback, parseBody = this._parseBody) {
@@ -18,11 +19,12 @@ export default class Liveview {
 
     this.websocketUrl.searchParams.append("vsn", "2.0.0");
     this.websocketUrl.searchParams.append("_csrf_token", csrfToken);
+    let topic = `lv:${phxId}`;
 
     this.channel = new Channel(
       this.websocketUrl.toString(),
-      `lv:${phxId}`,
-      this._params(response.cookies),
+      topic,
+      this.params,
       () => {}
     );
 
@@ -31,6 +33,10 @@ export default class Liveview {
         url: this.url.toString(),
         session: phxSession,
         static: phxStatic,
+        params: {
+          _csrf_token: csrfToken,
+          _mounts: 0
+        }
       },
       callback
     );
