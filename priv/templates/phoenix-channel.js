@@ -15,7 +15,7 @@ export default function () {
   let broadcastCallback = () => {};
   let channel = new Channel("<%= @url %>", "my_room:lobby", broadcastCallback);
 
-  channel.join({}, () => {
+  let res = channel.join({}, () => {
     console.log("joined");
 
     channel.send("ping", { data: "content" }, (response) => {
@@ -24,5 +24,6 @@ export default function () {
       channel.leave();
     });
   });
-  sleep(1);
+
+  check(res, { "status is 101": (r) => r && r.status === 101 });
 }

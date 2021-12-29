@@ -16,7 +16,7 @@ export default class Channel {
   }
 
   join(payload, callback) {
-    ws.connect(
+    return ws.connect(
       this.url.toString(),
       this.params,
       function (socket) {

@@ -28,7 +28,7 @@ export default class Liveview {
       () => {}
     );
 
-    this.channel.join(
+    return this.channel.join(
       {
         url: this.url.toString(),
         session: phxSession,

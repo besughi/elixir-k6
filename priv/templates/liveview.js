@@ -13,7 +13,7 @@ export default function () {
 
   let liveview = new Liveview("<%= @http_url %>", "<%= @websocket_url %>");
 
-  liveview.connect(() => {
+  let res = liveview.connect(() => {
     liveview.send(
       "event",
       { type: "click", event: "nav", value: { page: "2" } },
@@ -22,4 +22,5 @@ export default function () {
       }
     );
   });
+  check(res, { "status is 101": (r) => r && r.status === 101 });
 }
