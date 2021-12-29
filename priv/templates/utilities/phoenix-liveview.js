@@ -46,6 +46,14 @@ export default class Liveview {
     this.channel.leave();
   }
 
+  setInterval(callback, interval) {
+    return this.channel.setInterval(callback, interval);
+  }
+
+  setTimeout(callback, period) {
+    return this.channel.setTimeout(callback, period);
+  }
+
   send(event, payload, callback = () => {}) {
     this.channel.send(event, payload, callback);
   }

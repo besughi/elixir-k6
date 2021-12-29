@@ -8,8 +8,9 @@ export default class Channel {
     this.params = params;
     this.broadcastCallback = broadcastCallback;
     this.callbacks = {};
-    this.messageRef = 4;
-    this.joinRef = 4; // TODO make it dynamic?
+    this.sent_messages = {};
+    this.messageRef = 5;
+    this.joinRef = 5; // TODO make it dynamic?
 
     this.url.searchParams.append("vsn", "2.0.0");
   }
@@ -35,12 +36,20 @@ export default class Channel {
     );
   }
 
-  send(event, payload, callback = () => {}) {
-    this._send(event, payload, callback);
-  }
-
   leave() {
     this.socket.close();
+  }
+
+  setInterval(callback, interval) {
+    return this.socket.setInterval(callback, interval);
+  }
+
+  setTimeout(callback, period) {
+    return this.socket.setTimeout(callback, period);
+  }
+
+  send(event, payload, callback = () => {}) {
+    this._send(event, payload, callback);
   }
 
   _send(event, payload, callback) {
@@ -51,6 +60,7 @@ export default class Channel {
       event,
       payload,
     ]);
+
     this.socket.send(message);
 
     this.callbacks[this.messageRef.toString()] = callback;
