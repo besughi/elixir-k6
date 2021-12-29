@@ -34,7 +34,7 @@ defmodule Mix.Tasks.K6 do
     port = Port.open({:spawn_executable, wrapper_path()}, options)
 
     receive do
-      {^port, {:exit_status, exit_status}} -> exit_status
+      {^port, {:exit_status, exit_status}} -> exit({:shutdown, exit_status})
     end
   end
 
