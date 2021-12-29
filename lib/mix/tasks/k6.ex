@@ -16,7 +16,7 @@ defmodule Mix.Tasks.K6 do
 
   @shortdoc "Runs k6"
   def run(args) when is_list(args) do
-    unless File.exists?(binary_path()), do: Mix.Task.run("k6.install")
+    unless correct_version_installed?(), do: Mix.Task.run("k6.install")
 
     test_dir = tests_directory()
     unless File.exists?(test_dir), do: File.mkdir_p(test_dir)
@@ -49,4 +49,21 @@ defmodule Mix.Tasks.K6 do
   defp binary_path, do: Path.join(Path.dirname(Mix.Project.build_path()), "k6")
   defp wrapper_path, do: Path.join(Application.app_dir(:k6), "priv/wrapper.sh")
   defp tests_directory, do: Application.get_env(:k6, :workdir, "priv/k6")
+
+  defp correct_version_installed? do
+    path = binary_path()
+
+    if File.exists?(path) do
+      expected_version = Application.get_env(:k6, :version, "v0.35.0")
+      installed_version() == expected_version
+    else
+      false
+    end
+  end
+
+  defp installed_version do
+    {res, 0 = _exit_code} = System.cmd(binary_path(), ["version"])
+    ["k6", version | _] = String.split(res, " ", trim: true)
+    version
+  end
 end
