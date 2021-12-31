@@ -28,7 +28,7 @@ mix k6.gen.test <test_name>
 By default k6 tests will be placed under the `priv/k6` directory of your project.
 
 The template to use for the test can be set via the `--type` argument.
-Supported types are `rest` (default), `graphql`, `grpc`, `websocket`, `phoenix-channel` and `liveview`.
+Supported types are `rest` (default), `graphql`, `grpc`, `websocket`, `phoenix-channel` (experimental) and `liveview` (experimental).
 
 Run `mix help k6.gen.test` for more info on generating tests.
 

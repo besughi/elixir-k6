@@ -28,6 +28,8 @@ defmodule Mix.Tasks.K6.Gen.Test do
     url: :string
   ]
 
+  @experimental_templates ~w(phoenix-channel liveview)
+
   @shortdoc "Generate a new k6 test"
   def run(args) do
     Mix.Task.run("app.start")
@@ -39,13 +41,8 @@ defmodule Mix.Tasks.K6.Gen.Test do
 
         do_generate(type, filename, switches)
 
-        Mix.shell().info("""
-
-        Edit `#{filename}` to customize your load test.
-        Once you're done run `mix k6 run #{test_name}.js` to execute it.
-
-        For more info about running k6 see https://k6.io/docs/getting-started/running-k6/.
-        """)
+        if type in @experimental_templates, do: print_experimental_type_warning(type)
+        print_success_message(test_name, filename)
 
       {_switches, _positional_args} ->
         Mix.raise("Please provide a single name for your test.")
@@ -72,6 +69,30 @@ defmodule Mix.Tasks.K6.Gen.Test do
     Mix.raise("""
     Type "#{type}" is not valid.
     Sypported types are `rest` (default), `graphql`, `grpc`, `websocket`, `phoenix-channel` and `liveview`
+    """)
+  end
+
+  defp print_experimental_type_warning(type) do
+    Mix.shell().info(
+      String.replace_suffix(
+        """
+
+        Please note that support for `#{type}` is currently experimental.
+        If you would like to contribute, or if you run into any issue, please reach out at https://github.com/besughi/elixir-k6.
+        """,
+        "\n",
+        ""
+      )
+    )
+  end
+
+  defp print_success_message(test_name, filename) do
+    Mix.shell().info("""
+
+    Edit `#{filename}` to customize your load test.
+    Once you're done run `mix k6 run #{test_name}.js` to execute it.
+
+    For more info about running k6 see https://k6.io/docs/getting-started/running-k6/.
     """)
   end
 

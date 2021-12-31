@@ -46,5 +46,19 @@ defmodule K6.E2e.TestGenerationTest do
     assert test_stub =~ "let liveview = new Liveview("
   end
 
+  test "warns that some test types are still experimental", %{app_path: app_path} do
+    {liveview_stdout, _} =
+      E2eUtils.generate_load_test(app_path, ["liveview_test", "--type", "liveview"])
+
+    {phoenix_channel_stdout, _} =
+      E2eUtils.generate_load_test(app_path, ["phoenix_channel_test", "--type", "phoenix-channel"])
+
+    {rest_stdout, _} = E2eUtils.generate_load_test(app_path, ["rest_test", "--type", "rest"])
+
+    assert liveview_stdout =~ "experimental"
+    assert phoenix_channel_stdout =~ "experimental"
+    refute rest_stdout =~ "experimental"
+  end
+
   defp tests_dir(app_path), do: Path.join(app_path, "priv/k6")
 end
