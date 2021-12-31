@@ -32,8 +32,6 @@ defmodule Mix.Tasks.K6.Gen.Test do
 
   @shortdoc "Generate a new k6 test"
   def run(args) do
-    Mix.Task.run("app.start")
-
     case OptionParser.parse!(args, strict: @switches, aliases: []) do
       {switches, [test_name]} ->
         type = Keyword.get(switches, :type, "rest")

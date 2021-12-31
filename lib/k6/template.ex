@@ -2,7 +2,7 @@ defmodule K6.Template do
   @moduledoc """
   Utility functions for a k6 template
   """
-  @default_host_and_port {"localhost", 80}
+  @default_host_and_port {"localhost", 4000}
 
   @callback needs_utilities() :: [String.t()]
   @callback create(filename :: String.t(), opts :: keyword) :: boolean()
@@ -35,29 +35,5 @@ defmodule K6.Template do
     Path.join([Application.app_dir(:k6), "priv/templates/", template])
   end
 
-  def default_host_and_port do
-    mix_app = Mix.Project.config()[:app]
-    config = Application.get_all_env(mix_app)
-
-    phoenix_endpoint =
-      config
-      |> Enum.map(fn {key, _value} -> key end)
-      |> Enum.find(&phoenix_endpoint?/1)
-
-    if phoenix_endpoint != nil do
-      uri = phoenix_endpoint.struct_url()
-      {uri.host, uri.port}
-    else
-      @default_host_and_port
-    end
-  end
-
-  defp phoenix_endpoint?(term) do
-    endpoint_name? = "Endpoint" == term |> Module.split() |> Enum.at(-1)
-    has_url_function? = Keyword.has_key?(term.__info__(:functions), :struct_url)
-
-    endpoint_name? && has_url_function?
-  rescue
-    _ -> false
-  end
+  def default_host_and_port, do: @default_host_and_port
 end
