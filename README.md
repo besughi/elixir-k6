@@ -1,9 +1,17 @@
-# Elixir-K6
-
-Quick and painless load testing for Elixir applications.
-Easily generate load tests and run them via a local installation of [k6](https://k6.io).
-
-Originally developed at [SpawnFest](https://spawnfest.org/) 2021.
+<div align="center">
+  <h1 style="width: 100%; text-align: center">Elixir-K6</h1>
+  <p style="font-size: 18px; white-space: pre-line">Quick and painless load testing for Elixir applications.
+    Generate and run load tests via a local installation of <a href="https://k6.io">k6</a>.
+  </p>
+  <p>
+    Originally developed at <a href="https://spawnfest.org/">SpawnFest</a> 2021.
+  </p>
+</div>
+<div align="center" style="text-align: center;">
+  <img alt="Hex.pm" src="https://img.shields.io/hexpm/l/k6">
+  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/besughi/elixir-k6/ci">
+  <img alt="Hex.pm" src="https://img.shields.io/hexpm/v/k6">
+</div>
 
 ## Installation
 
