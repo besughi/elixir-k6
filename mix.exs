@@ -1,17 +1,21 @@
 defmodule K6.MixProject do
   use Mix.Project
 
+  @source_url "https://github.com/besughi/elixir-k6"
+  @version "0.1.0"
+
   def project do
     [
       app: :k6,
-      version: "0.1.0",
+      version: @version,
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       elixirc_paths: elixirc_paths(Mix.env()),
       deps: deps(),
       aliases: aliases(),
       xref: [exclude: [:httpc, :castore, :xref]],
-      dialyzer: [plt_add_deps: :transitive, plt_add_apps: [:mix]]
+      dialyzer: [plt_add_deps: :transitive, plt_add_apps: [:mix]],
+      package: package()
     ]
   end
 
@@ -19,6 +23,14 @@ defmodule K6.MixProject do
   def application do
     [
       extra_applications: [:eex, :public_key, :logger]
+    ]
+  end
+
+  defp package do
+    [
+      description: "Mix tasks for generating load tests, installing and invoking k6",
+      links: %{"GitHub" => @source_url, "k6" => "https://k6.io"},
+      licenses: ["MIT"]
     ]
   end
 
@@ -31,8 +43,9 @@ defmodule K6.MixProject do
 
   defp dev_deps do
     [
+      {:credo, "~> 1.6", only: [:dev]},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
-      {:credo, "~> 1.6", only: [:dev]}
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 
