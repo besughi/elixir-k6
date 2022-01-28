@@ -12,8 +12,9 @@ export default function () {
   // variable when invoking k6 or by setting `:k6, env: [key: "value"]` in your `config.exs`,
   // and then access it from `__ENV`, e.g.: `const url = __ENV.url`
 
+  let params = {};
   let broadcastCallback = () => {};
-  let channel = new Channel("<%= @url %>", "my_room:lobby", broadcastCallback);
+  let channel = new Channel("<%= @url %>", "my_room:lobby", params, broadcastCallback);
 
   let res = channel.join({}, () => {
     console.log("joined");
