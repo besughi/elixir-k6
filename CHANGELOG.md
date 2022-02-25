@@ -6,9 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+### [0.1.1] - 2022-02-25
 
 - Update default k6 version to `0.36.0`
+- Fix errors in `phoenix-channel` template
 
 ## [0.1.0] - 2021-01-07
 
