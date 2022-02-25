@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update default k6 version to `0.36.0`
+
 ## [0.1.0] - 2021-01-07
 
 ### Added

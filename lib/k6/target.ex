@@ -7,6 +7,7 @@ defmodule K6.Target do
   @type checksum :: String.t()
 
   @known_checksums %{
+    # 0.34.1
     "k6-v0.34.1-linux-amd64.tar.gz" =>
       "932668f86b4f5cfd4d33cd7c05651f9638570ccf303480ab5c207cba394e1732",
     "k6-v0.34.1-linux-arm64.tar.gz" =>
@@ -15,6 +16,7 @@ defmodule K6.Target do
       "b852687554455dd98b8a3c193608503263e87899be18e337e7473ae656c273f2",
     "k6-v0.34.1-macos-arm64.zip" =>
       "211fdce7f33df0643e0aaca59af9550b8c999cb6d4bbd6b741db059ecf9d7d73",
+    # 0.35.0
     "k6-v0.35.0-linux-amd64.tar.gz" =>
       "71d27146ca1da986157844e90e3907f1a79ec4827bd478a89d14c54b8b2fe2ae",
     "k6-v0.35.0-linux-arm64.tar.gz" =>
@@ -22,7 +24,16 @@ defmodule K6.Target do
     "k6-v0.35.0-macos-amd64.zip" =>
       "dce9644a1777cfdded78617893e54a33d5100eb2dec124053a0cee09976da826",
     "k6-v0.35.0-macos-arm64.zip" =>
-      "2c46c24bf8c317de3c2fa6cee7de4d3e2634d0e523daa6435956fdbc8ce64753"
+      "2c46c24bf8c317de3c2fa6cee7de4d3e2634d0e523daa6435956fdbc8ce64753",
+    # 0.36.0
+    "k6-v0.36.0-linux-amd64.tar.gz" =>
+      "2d934701b55cfd0cd04cd812e74a78b4885b3622d9364d33ef4b3972bf64222d",
+    "k6-v0.36.0-linux-arm64.tar.gz" =>
+      "941153c676cf3581249721541bc4c7a16ea64e6c08158b20f50f51abeafd5397",
+    "k6-v0.36.0-macos-amd64.zip" =>
+      "e91ec552a694ee05ec4433724e30414ff7f22c4ffc9749f6ad178139d0f1bcff",
+    "k6-v0.36.0-macos-arm64.zip" =>
+      "fce8a042825236df5bbdd07e771cda1d83b77c595d53dcc16b9a4103bb526558"
   }
 
   @doc """

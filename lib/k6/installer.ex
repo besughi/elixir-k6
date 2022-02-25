@@ -6,7 +6,7 @@ defmodule K6.Installer do
   ```
   config :k6, version: "vX.X.X"
   ```
-  If no k6 version is set the default is v0.35.0.
+  If no k6 version is set the default is v0.36.0.
   """
   alias K6.Archive
   alias K6.Downloader
@@ -25,5 +25,5 @@ defmodule K6.Installer do
     File.chmod!(@binary_path, 0o755)
   end
 
-  defp k6_version, do: Application.get_env(:k6, :version, "v0.35.0")
+  defp k6_version, do: Application.get_env(:k6, :version, "v0.36.0")
 end
