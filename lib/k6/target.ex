@@ -57,6 +57,7 @@ defmodule K6.Target do
     case {architecture(), :os.type()} do
       {'x86_64', {:unix, :darwin}} -> {:x86, :darwin}
       {'arm', {:unix, :darwin}} -> {:arm, :darwin}
+      {'aarch64', {:unix, :darwin}} -> {:arm, :darwin}
       {'x86_64', {:unix, :linux}} -> {:x86, :linux}
       {'arm', {:unix, :linux}} -> {:arm, :linux}
     end
