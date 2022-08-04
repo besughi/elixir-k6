@@ -11,8 +11,8 @@ export default class Liveview {
     this.params = params;
   }
 
-  connect(callback, parseBody = this._parseBody) {
-    let response = http.get(this.url.toString());
+  connect(callback, getParams = null, parseBody = this._parseBody) {
+    let response = http.get(this.url.toString(), getParams);
     let { csrfToken, phxId, phxSession, phxStatic } = parseBody(
       response.body
     );
