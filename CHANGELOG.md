@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### [0.2.0] - 2022-08-08
+
+- Fix support for macOs on M1/M2 CPUs 
+- Allow customizing params on HTTP request to connect to LiveView (`getParams` parameter on `LiveView.connect`)
+- Update default k6 version to `0.39.0`
+
 ### [0.1.1] - 2022-02-25
 
 - Update default k6 version to `0.36.0`

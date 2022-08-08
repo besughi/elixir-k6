@@ -20,7 +20,7 @@ The package can be installed by adding `k6` to your list of dependencies in `mix
 ```elixir
 def deps do
   [
-    {:k6, "~> 0.1.1"}
+    {:k6, "~> 0.2.0"}
   ]
 end
 ```
