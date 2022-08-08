@@ -33,7 +33,16 @@ defmodule K6.Target do
     "k6-v0.36.0-macos-amd64.zip" =>
       "e91ec552a694ee05ec4433724e30414ff7f22c4ffc9749f6ad178139d0f1bcff",
     "k6-v0.36.0-macos-arm64.zip" =>
-      "fce8a042825236df5bbdd07e771cda1d83b77c595d53dcc16b9a4103bb526558"
+      "fce8a042825236df5bbdd07e771cda1d83b77c595d53dcc16b9a4103bb526558",
+    # 0.39.0
+    "k6-v0.39.0-linux-amd64.tar.gz" =>
+      "d289d70971251c424115a0c8ee100dbc7b10673c4d4c56fb496b968a40d0d54d",
+    "k6-v0.39.0-linux-arm64.tar.gz" =>
+      "400f8d3b0625b67f14c60fcf6307b6f90a4905dee35c73d1f7687c7170217e27",
+    "k6-v0.39.0-macos-amd64.zip" =>
+      "fc035923caace1f2d54196cad71a88569d13bbb1595f762c25d36ef8cfb9338a",
+    "k6-v0.39.0-macos-arm64.zip" =>
+      "47e03f8d379dae9b6a3af580b6c7579808351c919e9d8fe9c2b6f07ea1cff292"
   }
 
   @doc """

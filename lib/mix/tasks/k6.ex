@@ -54,7 +54,7 @@ defmodule Mix.Tasks.K6 do
     path = binary_path()
 
     if File.exists?(path) do
-      expected_version = Application.get_env(:k6, :version, "v0.36.0")
+      expected_version = Application.get_env(:k6, :version, "v0.39.0")
       installed_version() == expected_version
     else
       false
