@@ -9,7 +9,7 @@
 </div>
 <div align="center" style="text-align: center;">
   <img alt="Hex.pm" src="https://img.shields.io/hexpm/l/k6">
-  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/besughi/elixir-k6/ci">
+  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/besughi/elixir-k6/ci.yml?branch=main">
   <img alt="Hex.pm" src="https://img.shields.io/hexpm/v/k6">
 </div>
 
