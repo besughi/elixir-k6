@@ -1,4 +1,6 @@
 import Liveview from "./utilities/phoenix-liveview.js";
+import { check } from "k6";
+
 
 // See https://k6.io/docs/using-k6/options/#using-options for documentation on k6 options
 export const options = {
