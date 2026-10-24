@@ -25,7 +25,10 @@ defmodule K6.Downloader do
       ]
     ]
 
-    case :httpc.request(:get, {binary_url(k6_version, target), []}, options, body_format: :binary) do
+    case :httpc.request(:get, {binary_url(k6_version, target), []}, options,
+           body_format: :binary,
+           max_header_size: 65_536
+         ) do
       {:ok, {{_, 200, _}, _headers, body}} ->
         verify_checksum!(body, checksum)
         {file_type, body}
